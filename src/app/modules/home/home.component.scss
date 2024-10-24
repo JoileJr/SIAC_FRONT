@@ -1,0 +1,28 @@
+.construction-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.construction-image {
+    width: 70vh;
+    margin-bottom: 20px;
+}
+
+.construction-text {
+    font-size: 2rem;
+    color: #3b82f6;
+}
+
+@media (max-width: 600px) {
+    .construction-text {
+        font-size: 1.5rem;
+    }
+
+    .construction-image {
+        max-width: 200px;
+    }
+}
