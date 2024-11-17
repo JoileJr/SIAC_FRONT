@@ -48,6 +48,13 @@ const routes: Routes = [
                     ),
             },
             {
+                path: "laboratory",
+                loadChildren: () =>
+                    import("../laboratory/laboratory.module").then(
+                        (m) => m.LaboratoryModule,
+                    ),
+            },
+            {
                 path: "**",
                 redirectTo: "home"
             }

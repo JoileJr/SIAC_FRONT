@@ -1,0 +1,16 @@
+<div class="container flex align-items-center">
+    <div class="card flex flex-column p-4">
+        <div class="flex justify-content-between align-items-center mb-3">
+            <h3>Laboratório</h3>
+            <span>
+                <p-button
+                    label="Meu Laboratório"
+                    icon="pi pi-plus"
+                    iconPos="right"
+                    size="small"
+                    (onClick)="showDialog()"/>
+            </span>
+        </div>
+    </div>
+</div>
+<app-dialog-form [visible]="visible" (closeDialog)="closeDialog()"></app-dialog-form>
