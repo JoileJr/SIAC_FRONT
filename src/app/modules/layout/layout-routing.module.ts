@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LayoutComponent } from "./layout.component";
 import { HomeComponent } from "../home/home.component";
-import { DiagramClassComponent } from "../diagram-class/diagram-class.component";
 import { authGuard } from "../../core/guards/auth.guard";
 import { loginGuard } from "../../core/guards/login.guard";
 import { SingupComponent } from "../singup/singup.component";
@@ -28,10 +27,6 @@ const routes: Routes = [
             {
                 path: "home",
                 component: HomeComponent
-            },
-            {
-                path: "diagram-class-uml",
-                component: DiagramClassComponent
             },
             {
                 path: "appointments",
