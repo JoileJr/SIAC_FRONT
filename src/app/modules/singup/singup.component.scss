@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #c5c5c5;
+  }
+
+  .signup-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .logo {
+    color: #007bff;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+
+  .signup-form h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .signup-form p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #606770;
+  }
+
+  .input-group {
+    margin-bottom: 15px;
+  }
+
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  .dob select {
+    width: 32%;
+    margin-right: 2%;
+  }
+
+  .gender {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .gender label {
+    font-size: 14px;
+    color: #606770;
+  }
+
+  .signup-btn {
+    background-color: #42b72a;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .signup-btn:disabled {
+    background-color: #cccccc;
+  }
+
+  .signup-btn:hover:enabled {
+    background-color: #36a420;
+  }
+
+  .login-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .login-link:hover {
+    text-decoration: underline;
+  }
+
+p-password {
+    &::ng-deep {
+        input {
+            width: 360px
+        }
+    }
+}
+
+p-calendar {
+    &::ng-deep {
+        input {
+            width: 360px
+        }
+    }
+}
+
+p-inputMask {
+    &::ng-deep {
+        input {
+            width: 360px
+        }
+    }
+}
+
+p-radioButton {
+    &::ng-deep {
+        input {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+}
+
+p-selectButton {
+    &::ng-deep {
+        input {
+            width: 360px
+        }
+    }
+}

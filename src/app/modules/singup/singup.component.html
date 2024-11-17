@@ -1,0 +1,110 @@
+<div class="container">
+    <div class="signup-form">
+      <h1 class="logo">Siac</h1>
+      <h2>Criar uma nova conta</h2>
+      <p>É rápido e fácil.</p>
+      <form [formGroup]="signUpFg">
+
+        <div class="input-group">
+          <input
+            type="text"
+            pInputText
+            class="input"
+            formControlName="nome"
+            placeholder="Nome"
+            required />
+        </div>
+
+        <div class="input-group">
+            <p-inputMask
+                mask="999.999.999-99"
+                formControlName="cpf"
+                placeholder="CPF"
+                class="input"
+            />
+        </div>
+
+        <div class="input-group">
+            <p-calendar
+            formControlName="dataNascimento"
+            placeholder="Data Nascimento"
+            [showIcon]="true"
+            [showOnFocus]="false"
+            inputId="icondisplay"
+            [iconDisplay]="'input'"
+            class="input"
+            />
+        </div>
+
+        <div class="input-group">
+            <div class="flex flex-wrap gap-3 flex align-items-center">
+                <div *ngFor="let sex of sexOptions">
+                    <p-radioButton
+                        [inputId]="sex.value"
+                        [value]="sex.value"
+                        formControlName="sexo"
+                        class="input"
+                        />
+                    <label [for]="sex.key">
+                        {{ sex.label }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input
+            type="text"
+            pInputText
+            class="input"
+            formControlName="email"
+            placeholder="Email"
+            />
+        </div>
+
+        <div class="input-group">
+            <p-inputMask
+                mask="99-999999999"
+                formControlName="telefone"
+                placeholder="Telefone celular"
+                class="input"
+            />
+        </div>
+
+        <div class="input-group">
+            <p-selectButton
+                [options]="perfilOptions"
+                formControlName="perfis"
+                optionLabel="label"
+                optionValue="value"
+                class="input"
+                 />
+        </div>
+
+        <div class="input-group">
+            <p-password
+                formControlName="senha"
+                [toggleMask]="true"
+                promptLabel="Escolha uma senha"
+                weakLabel="Senha Fraca"
+                mediumLabel="Senha Média"
+                strongLabel="Senha Forte"
+                placeholder="Senha"
+                class="input"
+            >
+                <ng-template pTemplate="footer">
+                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                        <li>At least one lowercase</li>
+                        <li>At least one uppercase</li>
+                        <li>At least one numeric</li>
+                        <li>Minimum 8 characters</li>
+                    </ul>
+                </ng-template>
+            </p-password>
+        </div>
+
+        <button type="submit" class="signup-btn" (click)="onSubmit()" [disabled]="signUpFg.invalid">Cadastre-se</button>
+        <a href="#" class="login-link">Já tem uma conta?</a>
+      </form>
+    </div>
+  </div>

@@ -4,5 +4,6 @@ export const RoutesConstants = {
     SERVICES: "/app/services",
     HOME: "/app/home",
     ROOT_APP: "app",
-    AUTH: "/auth"
+    AUTH: "/auth",
+    SINGUP: "/singup"
 }

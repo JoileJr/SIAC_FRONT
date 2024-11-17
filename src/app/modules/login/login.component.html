@@ -1,18 +1,18 @@
 <div class="login">
     <div class="login__half login__half--left">
         <div class="login__content">
-
         </div>
     </div>
     <div class="login__half login__half--right">
         <div class="login__content">
+            <h1>Siac</h1>
             <form [formGroup]="loginFg" class="login__form">
                 <p-floatLabel>
-                    <input
-                        formControlName="email"
-                        pInputText
-                        id="email" />
-                    <label for="email">Usuário</label>
+                    <p-inputMask
+                    mask="999.999.999-99"
+                    formControlName="cpf"
+                    class="input"/>
+                    <label for="password">CPF</label>
                 </p-floatLabel>
 
                 <p-floatLabel>
@@ -22,16 +22,20 @@
                         promptLabel="Escolha uma senha"
                         weakLabel="Senha Fraca"
                         mediumLabel="Senha Média"
-                        strongLabel="Senha Forte"/>
+                        strongLabel="Senha Forte"
+                        class="input"/>
                     <label for="password">Senha</label>
                 </p-floatLabel>
 
                 <p-button
-                    label="Acessar"
-                    icon="pi pi-check"
+                    label="Entrar"
                     [loading]="loading()"
                     (onClick)="doUserLogin()" />
             </form>
+            <div>
+                <p>Não tem uma conta?</p>
+                <a class="linktext" (click)="singUpRedirect()">Cadastre-se</a>
+            </div>
         </div>
     </div>
 </div>

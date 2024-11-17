@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-    title = 'sistema_gerenciamento_servicos_ng';
+    title = 'siac';
 }

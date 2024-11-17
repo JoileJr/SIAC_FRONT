@@ -1,29 +1,34 @@
 import { NgModule } from "@angular/core";
-import { LoginComponent } from "./login.component";
 import { SharedModule } from "../../core/shared/shared.module";
 import { InputTextModule } from "primeng/inputtext";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { PasswordModule } from "primeng/password";
 import { ToastModule } from "primeng/toast";
-import { LoginRoutingModule } from "./login-routing.module";
 import { ToastService } from "../../core/services/toastr/toast.service";
+import { SingupComponent } from "./singup.component";
+import { CalendarModule } from 'primeng/calendar';
 import { InputMaskModule } from 'primeng/inputmask';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+
 
 @NgModule({
     declarations: [
-        LoginComponent
+        SingupComponent
     ],
     imports: [
-        LoginRoutingModule,
         SharedModule,
         InputTextModule,
         FloatLabelModule,
         PasswordModule,
         ToastModule,
-        InputMaskModule
+        CalendarModule,
+        InputMaskModule,
+        RadioButtonModule,
+        SelectButtonModule
     ],
     providers: [
         ToastService
     ],
 })
-export class LoginModule { }
+export class SingUpModule { }

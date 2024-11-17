@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ToastModule } from "primeng/toast";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MessageService } from 'primeng/api';
 import { ToastService } from './core/services/toastr/toast.service';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { SingUpModule } from './modules/singup/singup.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ToastModule } from "primeng/toast";
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
         BrowserAnimationsModule,
         BrowserModule,
         HttpClientModule,
+        SingUpModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

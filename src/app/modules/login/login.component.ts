@@ -5,9 +5,10 @@ import { AuthenticationService } from "../../core/services/authentication/authen
 import { Router } from "@angular/router";
 import { catchError, finalize, take } from "rxjs/operators";
 import { HttpErrorResponse } from "@angular/common/http";
+import { RoutesConstants } from "../../core/constants/routes.constants";
 
 interface ILoginFormGroup {
-    email: FormControl<string | null>;
+    cpf: FormControl<string | null>;
     password: FormControl<string | null>;
 }
 
@@ -22,7 +23,7 @@ export class LoginComponent {
     loading: WritableSignal<boolean> = signal(false);
 
     loginFg: FormGroup<ILoginFormGroup> = new FormGroup({
-        email: new FormControl<string | null>(null, [Validators.required]),
+        cpf: new FormControl<string | null>(null, [Validators.required]),
         password: new FormControl<string | null>(null, [Validators.required]),
     });
 
@@ -34,7 +35,7 @@ export class LoginComponent {
 
     doUserLogin(): void {
         if (this.loading()) return;
-        
+
         if (!this.loginFg.valid) {
             this.loginFg.markAllAsTouched();
             this.toastService.error("", "Preencha todos os campos obrigatórios");
@@ -42,10 +43,10 @@ export class LoginComponent {
         }
 
         this.loading.set(true);
-        const { email, password } = this.loginFg.controls;
+        const { cpf, password } = this.loginFg.controls;
 
         this.authenticationService
-            .doUserLogin(email.value!, password.value!)
+            .doUserLogin(cpf.value!, password.value!)
             .pipe(
                 take(1),
                 finalize(() => this.loading.set(false)),
@@ -56,8 +57,13 @@ export class LoginComponent {
                     this.toastService.success("Sucesso", "Acesso realizado.");
                 },
                 error: (error: HttpErrorResponse) => {
-                    this.toastService.error("Atenção", error.error.error);
+                    this.toastService.error("Atenção", "Credenciais Invalidas");
                 }
             });
+    }
+
+
+    singUpRedirect(){
+        this.router.navigate([RoutesConstants.SINGUP]);
     }
 }

@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { IAuthResponse } from '../../interfaces/auth-response.interface';
 import { environment } from '../../../../environments/environment';
 import { IFeature } from '../../interfaces/feature.interface';
+import { SignUpRequest } from '../../interfaces/useCases/singup-request-dto';
 
 @Injectable({
     providedIn: 'root'
@@ -42,6 +43,12 @@ export class AuthenticationService {
                 this.currentUserSubject.next(user);
             })
         );
+    }
+
+    doSingUp(dto: SignUpRequest): Observable<any> {
+        return this.http.post<any>(
+            `${this.baseUrl}auth/sing-up`, dto
+        )
     }
 
     logout(): void {

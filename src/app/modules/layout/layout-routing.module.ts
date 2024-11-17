@@ -5,6 +5,7 @@ import { HomeComponent } from "../home/home.component";
 import { DiagramClassComponent } from "../diagram-class/diagram-class.component";
 import { authGuard } from "../../core/guards/auth.guard";
 import { loginGuard } from "../../core/guards/login.guard";
+import { SingupComponent } from "../singup/singup.component";
 
 const routes: Routes = [
     {
@@ -14,6 +15,10 @@ const routes: Routes = [
             import("../login/login.module").then(
                 (m) => m.LoginModule,
             ),
+    },
+    {
+        path:  "singup",
+        component: SingupComponent
     },
     {
         path: "app",

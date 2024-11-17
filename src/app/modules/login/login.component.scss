@@ -11,7 +11,10 @@
         padding: 2rem;
 
         &--left {
-            background-color: #007bff;
+            background-image: url('/assets/images/svg/bg-login.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         &--right {
@@ -56,3 +59,38 @@ p-button {
         }
     }
 }
+
+h1 {
+    color: #007bff;
+}
+
+p {
+    color: black;
+}
+
+.linktext {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.linktext:hover{
+    text-decoration: underline;
+}
+
+p-inputMask {
+    &::ng-deep {
+        input {
+            width: 100%;
+        }
+    }
+}
+
+
+p-password {
+    &::ng-deep {
+        input {
+            width: 100%;
+        }
+    }
+}
+
