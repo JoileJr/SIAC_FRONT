@@ -6,6 +6,7 @@ import { IAuthResponse } from '../../interfaces/auth-response.interface';
 import { environment } from '../../../../environments/environment';
 import { IFeature } from '../../interfaces/feature.interface';
 import { SignUpRequest } from '../../interfaces/useCases/singup-request-dto';
+import { PessoaDTO } from '../../interfaces/dtos/pessoa.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +33,10 @@ export class AuthenticationService {
 
     public get token(): string | null {
         return this.currentUserValue?.access_token || null;
+    }
+
+    public get user(): PessoaDTO | null {
+        return this.currentUserValue?.user || null;
     }
 
     doUserLogin(cpf: string, senha: string): Observable<IAuthResponse> {
@@ -65,7 +70,4 @@ export class AuthenticationService {
         return !!this.token;
     }
 
-    getUserFeatures(): IFeature[] {
-        return this.currentUserValue?.user.features || [];
-    }
 }

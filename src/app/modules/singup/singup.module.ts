@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+
 import { SharedModule } from "../../core/shared/shared.module";
 import { InputTextModule } from "primeng/inputtext";
 import { FloatLabelModule } from "primeng/floatlabel";
@@ -25,7 +26,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
         CalendarModule,
         InputMaskModule,
         RadioButtonModule,
-        SelectButtonModule
+        SelectButtonModule,
     ],
     providers: [
         ToastService

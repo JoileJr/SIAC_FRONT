@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, OnInit, signal, WritableSignal } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignUpRequest } from '../../core/interfaces/useCases/singup-request-dto';
 import { TipoUsuario } from '../../core/interfaces/enums/TipoUsuario';
 import { ToastService } from '../../core/services/toastr/toast.service';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
-import { catchError, finalize, take } from "rxjs/operators";
+import { finalize, take } from "rxjs/operators";
 import { HttpErrorResponse } from '@angular/common/http';
 
 

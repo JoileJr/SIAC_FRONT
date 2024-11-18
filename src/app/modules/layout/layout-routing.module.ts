@@ -17,7 +17,11 @@ const routes: Routes = [
     },
     {
         path:  "singup",
-        component: SingupComponent
+        component: SingupComponent,
+        loadChildren: () =>
+            import("../singup/singup.module").then(
+                (m) => m.SingUpModule,
+            ),
     },
     {
         path: "app",

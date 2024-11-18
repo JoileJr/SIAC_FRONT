@@ -1,23 +1,47 @@
-.form-group {
-    width: 25vw;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.container {
+    width: 45vw;
 }
 
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.input-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 button {
+    margin: 10px;
+    width: 280px;
     margin-top: 20px;
-    width: 100%;
 }
 
-.error {
-    color: red;
-    font-size: 12px;
+p-inputMask {
+    &::ng-deep {
+        input {
+            width: 280px;
+            margin: 10px;
+        }
+    }
 }
+
+p-radioButton {
+    &::ng-deep {
+        input {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+}
+
+.input-group input{
+    width: 280px;
+    margin: 10px;
+}
+

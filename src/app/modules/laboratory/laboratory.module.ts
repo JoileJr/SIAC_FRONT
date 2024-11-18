@@ -12,6 +12,10 @@ import { SelectButtonModule } from "primeng/selectbutton";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { InputMaskModule } from "primeng/inputmask";
 import { CalendarModule } from "primeng/calendar";
+import { InputTextModule } from "primeng/inputtext";
+import { FloatLabelModule } from "primeng/floatlabel";
+import { PasswordModule } from "primeng/password";
+import { ToastModule } from "primeng/toast";
 
 @NgModule({
     imports: [
@@ -25,7 +29,11 @@ import { CalendarModule } from "primeng/calendar";
         CalendarModule,
         InputMaskModule,
         RadioButtonModule,
-        SelectButtonModule
+        SelectButtonModule,
+        InputTextModule,
+        FloatLabelModule,
+        PasswordModule,
+        ToastModule,
     ],
     exports: [],
     declarations: [
