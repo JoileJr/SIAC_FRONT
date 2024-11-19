@@ -1,5 +1,5 @@
 .container {
-    width: 45vw;
+    width: 40vw;
 }
 
 .form-group {
@@ -18,14 +18,14 @@
 
 button {
     margin: 10px;
-    width: 280px;
-    margin-top: 20px;
+    width: 90%;
+    margin-top: 25px;
 }
 
 p-inputMask {
     &::ng-deep {
         input {
-            width: 280px;
+            width: 90%;
             margin: 10px;
         }
     }
@@ -41,7 +41,7 @@ p-radioButton {
 }
 
 .input-group input{
-    width: 280px;
+    width: 90%;
     margin: 10px;
 }
 

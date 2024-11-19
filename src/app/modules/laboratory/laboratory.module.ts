@@ -16,6 +16,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { PasswordModule } from "primeng/password";
 import { ToastModule } from "primeng/toast";
+import { CardModule } from 'primeng/card';
 
 @NgModule({
     imports: [
@@ -34,6 +35,7 @@ import { ToastModule } from "primeng/toast";
         FloatLabelModule,
         PasswordModule,
         ToastModule,
+        CardModule
     ],
     exports: [],
     declarations: [
