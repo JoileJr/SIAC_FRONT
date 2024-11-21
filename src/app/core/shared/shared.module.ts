@@ -12,7 +12,7 @@ const exportedModules = [
 ];
 
 const exportedPipes = [
-    CpfPipe, 
+    CpfPipe,
     CurrencyFormatPipe,
 ];
 
@@ -26,7 +26,7 @@ const exportedPipes = [
     ],
     providers: [],
     exports: [
-        ...exportedModules, 
+        ...exportedModules,
         ...exportedPipes
     ],
 })

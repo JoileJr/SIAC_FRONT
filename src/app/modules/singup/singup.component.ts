@@ -9,6 +9,16 @@ import { AuthenticationService } from '../../core/services/authentication/authen
 import { finalize, take } from "rxjs/operators";
 import { HttpErrorResponse } from '@angular/common/http';
 
+interface IsignUpFg {
+    nome: FormControl<string | null>;
+    cpf: FormControl<string | null>;
+    telefone: FormControl<string | null>;
+    sexo: FormControl<string | null>;
+    email: FormControl<string | null>;
+    senha: FormControl<string | null>;
+    dataNascimento: FormControl<Date | null>;
+    perfis: FormControl<string | null>;
+}
 
 @Component({
   selector: 'app-singup',
@@ -19,7 +29,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class SingupComponent implements OnInit {
     loading: WritableSignal<boolean> = signal(false);
 
-    signUpFg: FormGroup = new FormGroup({
+    signUpFg: FormGroup<IsignUpFg> = new FormGroup({
         nome: new FormControl<string | null>(null, [Validators.required]),
         cpf: new FormControl<string | null>(null, [Validators.required]),
         telefone: new FormControl<string | null>(null, [Validators.required]),
@@ -51,12 +61,22 @@ export class SingupComponent implements OnInit {
     }
 
     onSubmit(): void {
-      if (!this.signUpFg.valid) {
-        this.toastService.error("Atenção", "Dados Inválidos.");
-      }
+        if (!this.signUpFg.valid) {
+            this.toastService.error("Atenção", "Dados Inválidos.");
+        }
 
-      const signUpData: SignUpRequest = this.signUpFg.value;
-      this.authenticationService
+        const signUpData: SignUpRequest = {
+            nome: this.signUpFg.controls.nome?.value!,
+            cpf: this.signUpFg.controls.cpf?.value!,
+            telefone: this.signUpFg.controls.telefone?.value!,
+            sexo: this.signUpFg.controls.sexo?.value!,
+            email: this.signUpFg.controls.email?.value!,
+            senha: this.signUpFg.controls.senha?.value!,
+            dataNascimento: this.signUpFg.controls.dataNascimento?.value!,
+            perfis: this.signUpFg.controls.perfis?.value!,
+        };
+
+        this.authenticationService
             .doSingUp(signUpData)
             .pipe(
                 take(1),

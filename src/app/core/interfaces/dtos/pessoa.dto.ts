@@ -13,13 +13,7 @@ export class PessoaDTO {
 
   senha?: string;
 
-  dataNascimento!: string;
+  dataNascimento!: Date;
 
   perfis?: any;
-
-  convenios?: any[];
-
-  prontuarios?: any[];
-
-  examesRealizados?: any[];
 }
