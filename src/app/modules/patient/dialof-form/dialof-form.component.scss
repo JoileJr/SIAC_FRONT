@@ -6,7 +6,7 @@
 
 form {
     width: 30vw;
-    height: 50vh;
+    height: 55vh;
 }
 
 .input-group {
@@ -40,26 +40,11 @@ form {
     background-color: #cccccc;
 }
 
-.signup-btn:hover:enabled {
-    background-color: #36a420;
-}
-
-.login-link {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.login-link:hover {
-    text-decoration: underline;
-}
 
 p-password {
     &::ng-deep {
         input {
-            width: 360px
+            width: 15vw;
         }
     }
 }
@@ -67,7 +52,7 @@ p-password {
 p-calendar {
     &::ng-deep {
         input {
-            width: 360px
+            width: 15vw;
         }
     }
 }
@@ -75,7 +60,7 @@ p-calendar {
 p-inputMask {
     &::ng-deep {
         input {
-            width: 360px
+            width: 15vw;
         }
     }
 }
@@ -92,7 +77,7 @@ p-radioButton {
 p-selectButton {
     &::ng-deep {
         input {
-            width: 360px
+            width: 15vw;
         }
     }
 }
