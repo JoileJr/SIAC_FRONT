@@ -18,8 +18,7 @@ export class SidebarComponent {
     public sidebarVisible: WritableSignal<boolean> = signal(false);
 
     constructor(
-        private router: Router,
-        private authenticationService: AuthenticationService,
+        private router: Router
     ) {}
 
     closeCallback(e: any): void {
@@ -31,8 +30,4 @@ export class SidebarComponent {
         this.sidebarVisible.set(false);
     }
 
-    logout(): void {
-        this.authenticationService.logout();
-        this.router.navigate([RoutesConstants.AUTH]);
-    }
 }

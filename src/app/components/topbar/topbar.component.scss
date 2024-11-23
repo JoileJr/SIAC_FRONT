@@ -1,23 +1,11 @@
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .icon-spin {
     font-size: 20px;
 }
 
-.icon-spin:hover {
-    display: inline-block;
-    animation: spin 2s linear infinite;
+p-avatar {
     cursor: pointer;
 }
 
-p-avatar {
+.h3 {
     cursor: pointer;
 }
