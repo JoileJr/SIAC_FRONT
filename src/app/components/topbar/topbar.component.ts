@@ -4,12 +4,13 @@ import { Router } from "@angular/router";
 import { RoutesConstants } from "../../core/constants/routes.constants";
 
 @Component({
-    selector: 'sgs-topbar',
+    selector: 'app-topbar',
     templateUrl: './topbar.component.html',
     styleUrl: './topbar.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopbarComponent {
+    routesConstants = RoutesConstants;
 
     constructor(
         private router: Router,
@@ -19,5 +20,9 @@ export class TopbarComponent {
     logout(): void {
         this.authenticationService.logout();
         this.router.navigate([RoutesConstants.AUTH]);
+    }
+
+    redirectRoute(route: string): void {
+        this.router.navigate([route]);
     }
 }
