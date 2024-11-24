@@ -70,9 +70,13 @@
             </div>
         </p-card>
 
-        <div *ngIf="patients && patients.length > 0" class="table mt-3">
+        <div class="table mt-3">
             <p-toast />
-            <p-table [value]="patients" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table
+            [value]="patients"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            *ngIf="tableVisible"
+            >
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Nome</th>
@@ -96,9 +100,12 @@
                                 icon="pi pi-pencil"
                                 (click)="selectPatient(patient)">
                             </button>
-                            <button class="delete" type="button" pButton pRipple icon="pi pi-trash" (click)="selectPatient(patient)">
+                            <button
+                                class="delete"
+                                type="button" pButton
+                                pRipple icon="pi pi-trash"
+                                (click)="selectPatient(patient)">
                             </button>
-
                         </td>
                     </tr>
                 </ng-template>

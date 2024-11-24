@@ -14,7 +14,6 @@ interface FilterFg {
     dataNascimentoFinal: FormControl<Date | null>;
 }
 
-
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
@@ -22,9 +21,10 @@ interface FilterFg {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PatientComponent implements OnInit {
-    patients!: PessoaDTO[];
+    patients: PessoaDTO[] = [];
     selectedPatient: PessoaDTO = new PessoaDTO();
     dialogVisible: boolean = false;
+    tableVisible: boolean = false;
 
     constructor(
       private patientService: PatientService,
@@ -58,10 +58,13 @@ export class PatientComponent implements OnInit {
     findPatients(filterDto: FilterPersonsRequest) {
       this.patientService.findByFilter(filterDto).subscribe({
         next: (data) => {
-          this.patients = data;
+            this.patients = data;
+            this.tableVisible = true;
+            this.toastService.success("Sucesso", "Pacientes encontrados com sucesso.");
         },
         error: (error: HttpErrorResponse) => {
-          this.toastService.error("Atenção", "Falha ao realizar busca.");
+            this.tableVisible = false;
+            this.toastService.error("Atenção", "Falha ao realizar busca.");
         }
       });
     }
