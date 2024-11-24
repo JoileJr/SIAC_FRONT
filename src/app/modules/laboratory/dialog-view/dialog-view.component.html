@@ -1,0 +1,36 @@
+<p-dialog header="Informações do Laboratório" [modal]="true" [(visible)]="visible" (onHide)="closeDialogView.emit()">
+    <div class="p-grid p-nogutter laboratorio-details p-mb-3">
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>Nome:</strong></span>
+            <p>{{ laboratorio.nome }}</p>
+        </div>
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>Razão Social:</strong></span>
+            <p>{{ laboratorio.razaoSocial }}</p>
+        </div>
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>CNPJ:</strong></span>
+            <p>{{ laboratorio.cnpj }}</p>
+        </div>
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>Telefone:</strong></span>
+            <p>{{ laboratorio.telefone }}</p>
+        </div>
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>Email:</strong></span>
+            <p>{{ laboratorio.email }}</p>
+        </div>
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>Endereço:</strong></span>
+            <p>
+                {{ laboratorio.endereco!.logradouro }}, Nº {{ laboratorio.endereco!.numero }} <br />
+                {{ laboratorio.endereco!.bairro }}, {{ laboratorio.endereco!.cidade }} - {{
+                laboratorio.endereco!.estado }} <br />
+                CEP: {{ laboratorio.endereco!.cep }}<br />
+                <span *ngIf="laboratorio?.endereco?.complemento">
+                    Complemento: {{ laboratorio.endereco!.complemento}}
+                </span>
+            </p>
+        </div>
+    </div>
+</p-dialog>

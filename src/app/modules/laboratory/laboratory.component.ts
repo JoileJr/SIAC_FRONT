@@ -9,8 +9,8 @@ import { LaboratorioDTO } from '../../core/interfaces/dtos/laboratorio.dto';
 })
 export class LaboratoryComponent {
     laboratorio: LaboratorioDTO;
-
     visible: boolean = false;
+    visivleView: boolean = false;
 
     constructor() {
         this.laboratorio = {
@@ -37,7 +37,12 @@ export class LaboratoryComponent {
         this.visible = true;
     }
 
+    showDialogView() {
+        this.visivleView = true;
+    }
+
     closeDialog() {
         this.visible = false;
+        this.visivleView = false;
     }
 }

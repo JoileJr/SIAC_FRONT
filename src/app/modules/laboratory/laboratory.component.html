@@ -1,47 +1,42 @@
-<div class="">
-    <div class="container p-mt-5 p-fluid">
-        <p-card class="p-shadow-3 card">
-            <div class="header flex justify-content-between align-items-center p-mb-3">
-                <h2 class="p-mr-2">Informações do Laboratório</h2>
-                <p-button label="Editar" icon="pi pi-pencil" iconPos="right" size="small" (onClick)="showDialog()"
-                    class="p-button-rounded p-button-info"></p-button>
+<div class="container">
+    <p-card
+        header="{{laboratorio.nome}}"
+        [style]="{ width: '500px', border: '2px solid #D8DADC', 'box-shadow': '0 4px 8px rgba(0, 0, 0, 0.1)'}"
+    >
+        <ng-template pTemplate="header">
+            <img alt="Card" src="https://abramed.org.br/wp-content/uploads/2021/02/shutterstock_531253354-scaled.jpg" />
+        </ng-template>
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>Razão Social:</strong></span>
+            <p>{{ laboratorio.razaoSocial }}</p>
+        </div>
+        <div class="p-col-12 p-md-6">
+            <span class="label"><strong>CNPJ:</strong></span>
+            <p>{{ laboratorio.cnpj }}</p>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="flex gap-3 mt-1 buttons-grid">
+                <button
+                    class="view"
+                    type="button"
+                    pButton
+                    pRipple icon="pi pi-eye"
+                    (click)="showDialogView()"
+                ></button>
+                <button
+                    type="button"
+                    pButton
+                    pRipple
+                    icon="pi pi-pencil"
+                    (click)="showDialog()"
+                ></button>
             </div>
-    
-            <div class="p-grid p-nogutter laboratorio-details p-mb-3">
-                <div class="p-col-12 p-md-6">
-                    <span class="label"><strong>Nome:</strong></span>
-                    <p>{{ laboratorio.nome }}</p>
-                </div>
-                <div class="p-col-12 p-md-6">
-                    <span class="label"><strong>Razão Social:</strong></span>
-                    <p>{{ laboratorio.razaoSocial }}</p>
-                </div>
-                <div class="p-col-12 p-md-6">
-                    <span class="label"><strong>CNPJ:</strong></span>
-                    <p>{{ laboratorio.cnpj }}</p>
-                </div>
-                <div class="p-col-12 p-md-6">
-                    <span class="label"><strong>Telefone:</strong></span>
-                    <p>{{ laboratorio.telefone }}</p>
-                </div>
-                <div class="p-col-12 p-md-6">
-                    <span class="label"><strong>Email:</strong></span>
-                    <p>{{ laboratorio.email }}</p>
-                </div>
-                <div class="p-col-12 p-md-6">
-                    <span class="label"><strong>Endereço:</strong></span>
-                    <p>
-                        {{ laboratorio.endereco!.logradouro }}, Nº {{ laboratorio.endereco!.numero }} <br />
-                        {{ laboratorio.endereco!.bairro }}, {{ laboratorio.endereco!.cidade }} - {{
-                        laboratorio.endereco!.estado }} <br />
-                        CEP: {{ laboratorio.endereco!.cep }}<br />
-                        <span *ngIf="laboratorio?.endereco?.complemento">
-                            Complemento: {{ laboratorio.endereco!.complemento}}
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </p-card>
-    </div>
+        </ng-template>
+    </p-card>
 </div>
 <app-dialog-form [visible]="visible" (closeDialog)="closeDialog()"></app-dialog-form>
+<app-dialog-view
+    [visible]="visivleView"
+    [laboratorio]="laboratorio"
+    (closeDialogView)="closeDialog()"
+></app-dialog-view>
