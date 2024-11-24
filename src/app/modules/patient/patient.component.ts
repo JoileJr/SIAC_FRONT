@@ -4,6 +4,16 @@ import { MessageService } from 'primeng/api';
 import { PessoaDTO } from '../../core/interfaces/dtos/pessoa.dto';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../../core/services/toastr/toast.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FilterPersonsRequest } from '../../core/interfaces/useCases/filter-person-request';
+
+interface FilterFg {
+    nome: FormControl<string | null>;
+    cpf: FormControl<string | null>;
+    dataNascimentoInicio: FormControl<Date | null>;
+    dataNascimentoFinal: FormControl<Date | null>;
+}
+
 
 @Component({
   selector: 'app-patient',
@@ -20,11 +30,16 @@ export class PatientComponent implements OnInit {
       private patientService: PatientService,
       private messageService: MessageService,
       private toastService: ToastService
-    ) {
-    }
+    ) {}
+
+    filterFg: FormGroup<FilterFg> = new FormGroup({
+        nome: new FormControl<string | null>(null),
+        cpf: new FormControl<string | null>(null),
+        dataNascimentoInicio: new FormControl<Date | null>(null),
+        dataNascimentoFinal: new FormControl<Date | null>(null)
+    });
 
     ngOnInit() {
-      this.findPatients();
     }
 
     openDialog(patient?: PessoaDTO) {
@@ -40,8 +55,8 @@ export class PatientComponent implements OnInit {
       this.openDialog(patient);
     }
 
-    findPatients() {
-      this.patientService.getAllPatients().subscribe({
+    findPatients(filterDto: FilterPersonsRequest) {
+      this.patientService.findByFilter(filterDto).subscribe({
         next: (data) => {
           this.patients = data;
         },
@@ -53,7 +68,25 @@ export class PatientComponent implements OnInit {
 
     closeDialog() {
       this.dialogVisible = false;
-      this.findPatients();
+    }
+
+    blockTyping(event: KeyboardEvent) {
+        event.preventDefault();
+    }
+
+    limparFormulario() {
+        this.filterFg.reset();
+    }
+
+    onSubmit() {
+        const filterDto = new FilterPersonsRequest(
+          this.filterFg.value.nome || undefined,
+          this.filterFg.value.cpf || undefined,
+          this.filterFg.value.dataNascimentoInicio || undefined,
+          this.filterFg.value.dataNascimentoFinal || undefined
+        );
+
+        this.findPatients(filterDto);
     }
 
 }

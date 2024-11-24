@@ -16,6 +16,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
     imports: [
@@ -35,6 +36,7 @@ import { DialogModule } from 'primeng/dialog';
         RadioButtonModule,
         SelectButtonModule,
         DialogModule,
+        CardModule
     ],
     exports: [],
     declarations: [PatientComponent, DialofFormComponent],

@@ -2,10 +2,6 @@
     .p-progressbar {
         height: .5rem;
         background-color: #D8DADC;
-
-        .p-progressbar-value {
-            background-color: #607D8B;
-        }
     }
 }
 
@@ -17,8 +13,69 @@
     width: 80vw;
 }
 
-.delete{
+.delete {
     background-color: red;
     border-color: red;
     margin-left: 15px;
 }
+
+.filter {
+    display: flex;
+    justify-content: end;
+}
+
+.footer-filter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.footer-filter{
+    p-button {
+        &::ng-deep {
+            button {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+
+.input{
+    width: 300px;
+}
+
+p-card {
+    &::ng-deep {
+        div {
+            background-color: #f9fafb;
+        }
+    }
+}
+
+p-button {
+    &::ng-deep {
+        button {
+            width: 250px;
+        }
+    }
+}
+
+p-calendar {
+    &::ng-deep {
+        input {
+            width: 300px
+        }
+    }
+}
+
+p-inputMask {
+    &::ng-deep {
+        input {
+            width: 300px
+        }
+    }
+}
+

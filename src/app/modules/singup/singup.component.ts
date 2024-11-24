@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, signal, WritableSignal } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ interface IsignUpFg {
   styleUrl: './singup.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SingupComponent implements OnInit {
+export class SingupComponent {
     loading: WritableSignal<boolean> = signal(false);
 
     signUpFg: FormGroup<IsignUpFg> = new FormGroup({
@@ -57,7 +57,8 @@ export class SingupComponent implements OnInit {
         private router: Router,
     ) {}
 
-    ngOnInit(): void {
+    blockTyping(event: KeyboardEvent) {
+        event.preventDefault();
     }
 
     onSubmit(): void {

@@ -39,6 +39,7 @@
             inputId="icondisplay"
             [iconDisplay]="'input'"
             class="input"
+            (keydown)="blockTyping($event)"
             />
             <small *ngIf="signUpFg.controls.dataNascimento?.invalid" class="text-red-500 text-xs">
                 Data de Nascimento é obrigatório.
