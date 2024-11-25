@@ -6,6 +6,7 @@ import { take } from 'rxjs';
 import { ToastService } from '../../core/services/toastr/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PatientService } from '../../core/services/patient/patient.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-laboratory',
@@ -25,6 +26,8 @@ export class LaboratoryComponent {
         private pacienteService: PatientService,
         private toastService: ToastService,
         private cd: ChangeDetectorRef,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
     ) {
         this.pacienteService.findByID(this.authService.user!.id!).subscribe(
             {
@@ -70,4 +73,24 @@ export class LaboratoryComponent {
                 }
             });
     }
+
+    confirm(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Tem certeza que deseja excluir este laboratório?',
+            header: 'Confirmação',
+            icon: 'pi pi-exclamation-triangle',
+            acceptIcon:"none",
+            rejectIcon:"none",
+            acceptLabel:"Excluir",
+            rejectLabel:"Cancelar",
+            rejectButtonStyleClass:"p-button-text",
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Excluido com sucesso' });
+            },
+            reject: () => {
+            }
+        });
+    }
+
 }

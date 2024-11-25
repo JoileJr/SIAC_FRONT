@@ -33,6 +33,13 @@
             <ng-template pTemplate="footer">
                 <div class="flex gap-3 mt-1 buttons-grid">
                     <button
+                        class="delete"
+                        type="button"
+                        pButton
+                        pRipple icon="pi pi-trash"
+                        (onClick)="confirm($event)"
+                    ></button>
+                    <button
                         class="view"
                         type="button"
                         pButton

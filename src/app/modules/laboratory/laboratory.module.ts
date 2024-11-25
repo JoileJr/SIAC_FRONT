@@ -18,6 +18,7 @@ import { PasswordModule } from "primeng/password";
 import { ToastModule } from "primeng/toast";
 import { CardModule } from 'primeng/card';
 import { DialogViewComponent } from './dialog-view/dialog-view.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { DialogViewComponent } from './dialog-view/dialog-view.component';
         FloatLabelModule,
         PasswordModule,
         ToastModule,
-        CardModule
+        CardModule,
+        ConfirmDialogModule
     ],
     exports: [],
     declarations: [
