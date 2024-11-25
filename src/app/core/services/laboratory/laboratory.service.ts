@@ -25,4 +25,8 @@ export class LabService {
         return this.http.get<LaboratorioCreateRequest>(`${this.apiUrl}${id}`);
     }
 
+    deleteLab(id: number): Observable<LaboratorioDTO> {
+        return this.http.delete<LaboratorioCreateRequest>(`${this.apiUrl}${id}`);
+    }
+
 }

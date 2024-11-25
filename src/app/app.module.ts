@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastModule } from "primeng/toast";
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -25,6 +25,7 @@ import { MessageService } from 'primeng/api';
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         ToastService,
         MessageService,
+        ConfirmationService
     ],
     bootstrap: [AppComponent]
 })
