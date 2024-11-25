@@ -6,7 +6,6 @@ import { ToastService } from '../../../core/services/toastr/toast.service';
 import { PatientService } from '../../../core/services/patient/patient.service';
 import { take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { TipoUsuario } from '../../../core/interfaces/enums/TipoUsuario';
 
 interface IsignUpFg {
     id: FormControl<string | null>;

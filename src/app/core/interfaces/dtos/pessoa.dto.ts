@@ -1,3 +1,5 @@
+import { LaboratorioDTO } from "./laboratorio.dto";
+
 export class PessoaDTO {
   id?: number;
 
@@ -16,4 +18,6 @@ export class PessoaDTO {
   dataNascimento!: Date;
 
   perfis?: any;
+
+  laboratorio?: LaboratorioDTO;
 }

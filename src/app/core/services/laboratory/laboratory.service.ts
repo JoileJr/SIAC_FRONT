@@ -17,4 +17,12 @@ export class LabService {
         return this.http.post<LaboratorioCreateRequest>(`${this.apiUrl}`, obj);
     }
 
+    updateLab(obj: LaboratorioDTO, id: number): Observable<LaboratorioDTO> {
+        return this.http.put<LaboratorioCreateRequest>(`${this.apiUrl}${id}`, obj);
+    }
+
+    getLabByID(id: number): Observable<LaboratorioDTO> {
+        return this.http.get<LaboratorioCreateRequest>(`${this.apiUrl}${id}`);
+    }
+
 }

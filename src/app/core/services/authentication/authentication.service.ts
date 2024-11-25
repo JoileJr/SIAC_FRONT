@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IAuthResponse } from '../../interfaces/auth-response.interface';
 import { environment } from '../../../../environments/environment';
-import { IFeature } from '../../interfaces/feature.interface';
 import { SignUpRequest } from '../../interfaces/useCases/singup-request-dto';
 import { PessoaDTO } from '../../interfaces/dtos/pessoa.dto';
 

@@ -1,70 +1,66 @@
 <p-dialog header="Cadastro de Laboratório" [modal]="true" [(visible)]="visible" (onHide)="closeDialog.emit()">
-    <div class="container">
-        <form [formGroup]="labFg" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <div class="input-group">
-                    <p-floatLabel>
-                        <input
-                        type="text"
-                        pInputText
-                        class="input"
-                        formControlName="nome"
-                        placeholder="Nome do Laboratório"
-                        required/>
-                        <label for="nome">Nome do Laboratório</label>
-                    </p-floatLabel>
-                </div>
+    <form *ngIf="labFg" [formGroup]="labFg" (ngSubmit)="onSubmit()">
+        <div class="input-group mt-2">
+          <input
+            type="text"
+            pInputText
+            class="input"
+            formControlName="nome"
+            placeholder="Nome"
+            required />
+            <small *ngIf="labFg.controls.nome?.invalid" class="text-red-500 text-xs">
+                Nome é obrigatório.
+            </small>
+        </div>
 
-                <div class="input-group">
-                    <p-floatLabel>
-                        <p-inputMask
-                            mask="99.999.999/9999-99"
-                            formControlName="cnpj"
-                            placeholder="CNPJ"
-                            class="input"
-                        />
-                        <label for="cnpj">CNPJ</label>
-                    </p-floatLabel>
-                </div>
+        <div class="input-group mt-2">
+            <p-inputMask
+            mask="99.999.999/9999-99"
+            formControlName="cnpj"
+            placeholder="CNPJ"
+            class="input"
+            />
+            <small *ngIf="labFg.controls.cnpj?.invalid" class="text-red-500 text-xs">
+                CNPJ é obrigatório.
+            </small>
+        </div>
 
-                <div class="input-group">
-                    <p-floatLabel>
-                        <input
-                            type="text"
-                            pInputText
-                            class="input"
-                            formControlName="razaoSocial"
-                            placeholder="Razão Social"
-                            required/>
-                        <label for="razaoSocial">Razão Social</label>
-                    </p-floatLabel>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <p-floatLabel>
-                        <input
-                        type="text"
-                        pInputText
-                        class="input"
-                        formControlName="email"
-                        placeholder="Email"/>
-                        <label for="email">Email</label>
-                    </p-floatLabel>
-                </div>
+        <div class="input-group mt-2">
+            <input
+            type="text"
+            pInputText
+            class="input"
+            formControlName="razaoSocial"
+            placeholder="Razão Social"
+            required />
+            <small *ngIf="labFg.controls.razaoSocial?.invalid" class="text-red-500 text-xs">
+                Razão Social é obrigatório.
+            </small>
+        </div>
 
-                <div class="input-group">
-                    <p-floatLabel>
-                        <p-inputMask
-                            mask="(99) 9999-9999"
-                            formControlName="telefone"
-                            placeholder="Telefone"
-                            class="input"
-                            />
-                        <label for="email">Telefone</label>
-                    </p-floatLabel>
-                </div>
-            </div>
+        <div class="input-group mt-2">
+            <input
+            type="text"
+            pInputText
+            class="input"
+            formControlName="email"
+            placeholder="Email"/>
+            <small *ngIf="labFg.controls.email?.invalid" class="text-red-500 text-xs">
+                Email é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group mt-2">
+            <input
+            mask="(99) 9999-9999"
+            formControlName="telefone"
+            placeholder="Telefone"
+            class="input"/>
+            <small *ngIf="labFg.controls.telefone?.invalid" class="text-red-500 text-xs">
+                Telefone é obrigatório.
+            </small>
+        </div>
+        <div class="mt-2">
             <h3>Endereço</h3>
             <div class="form-group">
                 <div class="input-group">
@@ -75,15 +71,21 @@
                         placeholder="Cep"
                         (onBlur)="findCep()"
                     />
+                    <small *ngIf="labFg.controls.cep?.invalid" class="text-red-500 text-xs">
+                        CEP é obrigatório.
+                    </small>
                 </div>
                 <div class="input-group">
-                        <input
+                    <input
                         type="text"
                         pInputText
                         class="input"
                         formControlName="estado"
                         placeholder="Estado"
                         required/>
+                        <small *ngIf="labFg.controls.estado?.invalid" class="text-red-500 text-xs">
+                            Estado é obrigatório.
+                        </small>
                 </div>
                 <div class="input-group">
                     <input
@@ -92,7 +94,11 @@
                         class="input"
                         formControlName="cidade"
                         placeholder="Cidade"
-                        required/>
+                        required
+                    />
+                    <small *ngIf="labFg.controls.cidade?.invalid" class="text-red-500 text-xs">
+                        Cidade é obrigatório.
+                    </small>
                 </div>
             </div>
             <div class="form-group">
@@ -103,7 +109,11 @@
                         class="input"
                         formControlName="bairro"
                         placeholder="Bairro"
-                        required/>
+                        required
+                        />
+                        <small *ngIf="labFg.controls.bairro?.invalid" class="text-red-500 text-xs">
+                            Bairro é obrigatório.
+                        </small>
                 </div>
                 <div class="input-group">
                     <input
@@ -114,6 +124,9 @@
                         required
                         placeholder="Logradouro"
                     />
+                    <small *ngIf="labFg.controls.logradouro?.invalid" class="text-red-500 text-xs">
+                        Logradouro é obrigatório.
+                    </small>
                 </div>
             </div>
             <div class="form-group">
@@ -126,6 +139,9 @@
                         placeholder="Complemento"
                         required
                     />
+                    <small *ngIf="labFg.controls.complemento?.invalid" class="text-red-500 text-xs">
+                        Complemento é obrigatório.
+                    </small>
                 </div>
                 <div class="input-group">
                     <input
@@ -134,10 +150,14 @@
                         class="input"
                         formControlName="numero"
                         placeholder="Número"
-                        required/>
+                        required
+                        />
+                        <small *ngIf="labFg.controls.numero?.invalid" class="text-red-500 text-xs">
+                            Número é obrigatório.
+                        </small>
                 </div>
-                <button type="submit" pButton label="Cadastrar" [disabled]="labFg.invalid"></button>
             </div>
-        </form>
-    </div>
+        </div>
+        <button type="submit" class="signup-btn" [disabled]="labFg.invalid">Salvar</button>
+    </form>
 </p-dialog>

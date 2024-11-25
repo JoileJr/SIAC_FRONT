@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, } from '@angular/core';
 import { LaboratorioDTO } from '../../core/interfaces/dtos/laboratorio.dto';
+import { AuthenticationService } from '../../core/services/authentication/authentication.service';
+import { LabService } from '../../core/services/laboratory/laboratory.service';
+import { take } from 'rxjs';
+import { ToastService } from '../../core/services/toastr/toast.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-laboratory',
@@ -8,29 +13,18 @@ import { LaboratorioDTO } from '../../core/interfaces/dtos/laboratorio.dto';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LaboratoryComponent {
-    laboratorio: LaboratorioDTO;
+    laboratorio?: LaboratorioDTO;
     visible: boolean = false;
     visivleView: boolean = false;
+    user = this.authService.user;
 
-    constructor() {
-        this.laboratorio = {
-            id: 1,
-            nome: 'Laboratório XYZ',
-            cnpj: '12.345.678/0001-99',
-            telefone: '(11) 1234-5678',
-            razaoSocial: 'Laboratório de Análises Clínicas XYZ LTDA',
-            email: 'contato@laboratorioxyz.com',
-            endereco: {
-                id: 1,
-                cep: '12345-678',
-                estado: 'SP',
-                cidade: 'São Paulo',
-                bairro: 'Centro',
-                logradouro: 'Rua das Flores',
-                numero: '123',
-                complemento: 'Apto 101'
-            }
-        };
+    constructor(
+        private authService: AuthenticationService,
+        private labService: LabService,
+        private toastService: ToastService,
+        private cd: ChangeDetectorRef,
+    ) {
+        this.getLabByID(this.user?.laboratorio?.id)
     }
 
     showDialog() {
@@ -44,5 +38,26 @@ export class LaboratoryComponent {
     closeDialog() {
         this.visible = false;
         this.visivleView = false;
+    }
+
+    getLabByID(id?: number) {
+        if(!id){
+            this.toastService.error("Atenção", "Você ainda não cadastrou Laboratório.");
+            return
+        }
+        this.labService
+            .getLabByID(id)
+            .pipe(
+                take(1),
+            ).subscribe({
+                next: (response) => {
+                    this.laboratorio = response;
+                    this.cd.markForCheck();
+                    this.toastService.success("Sucesso", "Busca realizado com sucesso.");
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.error("Atenção", "Falha ao buscar laboratório.");
+                }
+            });
     }
 }
