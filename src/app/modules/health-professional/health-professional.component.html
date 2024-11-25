@@ -1,1 +1,116 @@
-<p>health-professional works!</p>
+<div class="content flex flex-column align-items-center">
+    <div class="card flex flex-column p-5">
+        <p-card class="card-filter">
+            <div class="flex flex-row align-items-center justify-content-between">
+                <h3>Funcionários</h3>
+                <p-button
+                    label="Adicionar"
+                    icon="pi pi-plus"
+                    iconPos="right"
+                    (click)="openDialog()"
+                    />
+            </div>
+            <div>
+                <form
+                    class="flex flex-column"
+                    [formGroup]="filterFg"
+                >
+                    <div class="flex flex-row justify-content-between mt-3">
+                        <div class="flex flex-column">
+                            <input
+                            type="text"
+                            pInputText
+                            class="input"
+                            formControlName="nome"
+                            placeholder="Nome"
+                            required />
+                        </div>
+
+                        <div class="flex flex-column">
+                            <p-inputMask
+                                mask="999.999.999-99"
+                                formControlName="cpf"
+                                placeholder="CPF"
+                                class="input"
+                            />
+                        </div>
+
+                        <div class="flex flex-column">
+                            <p-calendar
+                            formControlName="dataNascimentoInicio"
+                            placeholder="Data Inicial de Nascimento"
+                            [showIcon]="true"
+                            [showOnFocus]="false"
+                            inputId="icondisplay"
+                            [iconDisplay]="'input'"
+                            class="input"
+                            (keydown)="blockTyping($event)"
+                            />
+                        </div>
+
+                        <div class="flex flex-column">
+                            <p-calendar
+                            formControlName="dataNascimentoFinal"
+                            placeholder="Data Final de Nascimento"
+                            [showIcon]="true"
+                            [showOnFocus]="false"
+                            inputId="icondisplay"
+                            [iconDisplay]="'input'"
+                            class="input"
+                            (keydown)="blockTyping($event)"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="flex flex-row justify-content-between mt-3">
+                        <div class="flex flex-column">
+                            <input
+                            type="text"
+                            pInputText
+                            class="input"
+                            formControlName="email"
+                            placeholder="Email"
+                            required />
+                        </div>
+
+                        <div class="flex flex-column">
+                            <p-inputMask
+                                mask="(99) 9999-9999"
+                                formControlName="telefone"
+                                placeholder="Telefone celular"
+                                class="input"
+                            />
+                        </div>
+
+                        <div class="flex flex-column">
+                            <p-inputMask
+                                mask="99999999?-aaa"
+                                formControlName="registroProfissional"
+                                placeholder="Registro Profissional"
+                                class="input"
+                            />
+                        </div>
+
+                        <div class="flex flex-column">
+                            <p-dropdown
+                                [options]="perfilOptions"
+                                formControlName="tipoProfissional"
+                                optionLabel="value"
+                                placeholder="Selecione o Tipo" />
+                            />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer-filter mt-5">
+                <div>
+                    <p-button label="Limpar" severity="secondary" class="button-filter" (click)="limparFormulario()" />
+                    <p-button label="Buscar" class="button-filter" (click)="onSubmit()" />
+                </div>
+            </div>
+        </p-card>
+
+
+    </div>
+</div>

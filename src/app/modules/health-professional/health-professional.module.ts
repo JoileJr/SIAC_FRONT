@@ -17,9 +17,13 @@ import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HealthProfessionalComponent } from "./health-professional.component";
 import { DialofFormComponent } from './dialof-form/dialof-form.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { HealthProfessionalRoutingModule } from "./heallth-professional-routing.module";
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
     imports: [
+        HealthProfessionalRoutingModule,
         SharedModule,
         FormsModule,
         TableModule,
@@ -35,7 +39,9 @@ import { DialofFormComponent } from './dialof-form/dialof-form.component';
         PasswordModule,
         ToastModule,
         CardModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        InputNumberModule,
+        DropdownModule
     ],
     exports: [],
     declarations: [
