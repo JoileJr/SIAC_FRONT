@@ -30,11 +30,11 @@ export class SingupComponent {
     loading: WritableSignal<boolean> = signal(false);
 
     signUpFg: FormGroup<IsignUpFg> = new FormGroup({
-        nome: new FormControl<string | null>(null, [Validators.required]),
+        nome: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÿ ]+$')]),
         cpf: new FormControl<string | null>(null, [Validators.required]),
         telefone: new FormControl<string | null>(null, [Validators.required]),
         sexo: new FormControl<string | null>(null, [Validators.required]),
-        email: new FormControl<string | null>(null, [Validators.required]),
+        email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
         senha: new FormControl<string | null>(null, [Validators.required]),
         dataNascimento: new FormControl<Date | null>(null, [Validators.required]),
         perfis: new FormControl<string | null>(null, [Validators.required])

@@ -43,11 +43,11 @@ export class DialofFormComponent implements OnChanges {
 
     createForm(patient: PessoaDTO): void {
         this.patientFg = new FormGroup(<IsignUpFg>{
-            nome: new FormControl<string | null>(patient.nome, [Validators.required]),
+            nome: new FormControl<string | null>(patient.nome, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÿ ]+$')]),
             cpf: new FormControl<string | null>(patient.cpf, [Validators.required]),
             telefone: new FormControl<string | null>(patient.telefone, [Validators.required]),
             sexo: new FormControl<string | null>(patient.sexo, [Validators.required]),
-            email: new FormControl<string | null>(patient.email, [Validators.required]),
+            email: new FormControl<string | null>(patient.email, [Validators.required, Validators.email]),
             dataNascimento: new FormControl<Date | null>(
                 patient.dataNascimento ? new Date(patient.dataNascimento) : null,
                 [Validators.required]
