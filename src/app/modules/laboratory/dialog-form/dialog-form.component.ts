@@ -57,7 +57,7 @@ export class DialogFormComponent implements OnChanges {
             nome: new FormControl<string | null>(laboratory.nome, [Validators.required]),
             cnpj: new FormControl<string | undefined>(laboratory.cnpj, [Validators.required]),
             razaoSocial: new FormControl<string | undefined>(laboratory.razaoSocial, [Validators.required]),
-            email: new FormControl<string | undefined>(laboratory.email, [Validators.required]),
+            email: new FormControl<string | undefined>(laboratory.email, [Validators.required, Validators.email]),
             telefone: new FormControl<string | undefined>(laboratory.telefone, [Validators.required]),
             cep: new FormControl<string | undefined>(laboratory.endereco?.cep, [Validators.required]),
             estado: new FormControl<string | undefined>(laboratory.endereco?.estado, [Validators.required]),
