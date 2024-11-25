@@ -5,15 +5,14 @@ import { AppComponent } from './app.component';
 import { ToastService } from './core/services/toastr/toast.service';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { SingUpModule } from './modules/singup/singup.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastModule } from "primeng/toast";
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         AppRoutingModule,
@@ -21,12 +20,12 @@ import { MessageService } from 'primeng/api';
         BrowserAnimationsModule,
         BrowserModule,
         HttpClientModule,
-        SingUpModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         ToastService,
         MessageService,
+        ConfirmationService
     ],
     bootstrap: [AppComponent]
 })

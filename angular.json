@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sistema_gerenciamento_servicos_ng": {
+    "siac": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/sistema_gerenciamento_servicos_ng",
+            "outputPath": "dist/siac",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "sistema_gerenciamento_servicos_ng:build:production"
+              "buildTarget": "siac:build:production"
             },
             "development": {
-              "buildTarget": "sistema_gerenciamento_servicos_ng:build:development"
+              "buildTarget": "siac:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "sistema_gerenciamento_servicos_ng:build"
+            "buildTarget": "siac:build"
           }
         },
         "test": {

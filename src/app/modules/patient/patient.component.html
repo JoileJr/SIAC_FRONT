@@ -1,0 +1,114 @@
+<div class="content flex flex-column align-items-center">
+    <div class="card flex flex-column p-5">
+        <p-card class="card-filter">
+            <div class="flex flex-row align-items-center justify-content-between">
+                <h3>Pacientes</h3>
+                <p-button
+                    label="Adicionar"
+                    icon="pi pi-plus"
+                    iconPos="right"
+                    (click)="openDialog()"
+                    />
+            </div>
+            <div>
+                <form
+                    class="flex flex-row justify-content-between mt-3"
+                    [formGroup]="filterFg"
+                >
+                    <div class="flex flex-column">
+                        <input
+                        type="text"
+                        pInputText
+                        class="input"
+                        formControlName="nome"
+                        placeholder="Nome"
+                        required />
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p-inputMask
+                            mask="999.999.999-99"
+                            formControlName="cpf"
+                            placeholder="CPF"
+                            class="input"
+                        />
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p-calendar
+                        formControlName="dataNascimentoInicio"
+                        placeholder="Data Inicial de Nascimento"
+                        [showIcon]="true"
+                        [showOnFocus]="false"
+                        inputId="icondisplay"
+                        [iconDisplay]="'input'"
+                        class="input"
+                        (keydown)="blockTyping($event)"
+                        />
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p-calendar
+                        formControlName="dataNascimentoFinal"
+                        placeholder="Data Final de Nascimento"
+                        [showIcon]="true"
+                        [showOnFocus]="false"
+                        inputId="icondisplay"
+                        [iconDisplay]="'input'"
+                        class="input"
+                        (keydown)="blockTyping($event)"
+                        />
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer-filter mt-5">
+                <div>
+                    <p-button label="Limpar" severity="secondary" class="button-filter" (click)="limparFormulario()" />
+                    <p-button label="Buscar" class="button-filter" (click)="onSubmit()" />
+                </div>
+            </div>
+        </p-card>
+
+        <div class="table mt-3">
+            <p-toast />
+            <p-table
+            [value]="patients"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            *ngIf="tableVisible"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cpf</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-patient>
+                    <tr>
+                        <td>{{ patient.nome }}</td>
+                        <td>{{ patient.cpf }}</td>
+                        <td>{{ patient.telefone }}</td>
+                        <td>{{ patient.email }}</td>
+                        <td>
+                            <button
+                                type="button"
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                (click)="selectPatient(patient)">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<app-dialof-form
+    [visible]="dialogVisible"
+    [patient]="selectedPatient"
+    (closeDialog)="closeDialog()">
+</app-dialof-form>

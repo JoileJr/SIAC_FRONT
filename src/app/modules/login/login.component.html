@@ -19,11 +19,8 @@
                     <p-password
                         formControlName="password"
                         [toggleMask]="true"
-                        promptLabel="Escolha uma senha"
-                        weakLabel="Senha Fraca"
-                        mediumLabel="Senha Média"
-                        strongLabel="Senha Forte"
-                        class="input"/>
+                        class="input"
+                        [feedback]="false"/>
                     <label for="password">Senha</label>
                 </p-floatLabel>
 

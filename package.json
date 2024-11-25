@@ -1,5 +1,5 @@
 {
-    "name": "sistema-gerenciamento-servicos-ng",
+    "name": "siac",
     "version": "0.0.0",
     "packageManager": "pnpm@9.6.0",
     "scripts": {
@@ -23,6 +23,7 @@
         "primeicons": "^7.0.0",
         "primeng": "^17.18.7",
         "rxjs": "~7.8.0",
+        "siac": "file:",
         "tslib": "^2.3.0",
         "zone.js": "~0.14.3"
     },

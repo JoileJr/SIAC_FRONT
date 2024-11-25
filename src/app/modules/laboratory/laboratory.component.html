@@ -1,0 +1,64 @@
+<div class="container">
+    <div *ngIf="!(laboratorio && laboratorio.id)" >
+        <p-card
+            header="Deseja cadastrar seu estabelecimento ?"
+        >
+        <div class="no-register">
+            <h4>Você ainda não cadastrou seu estabelecimento.</h4>
+            <p-button
+                label="Cadastrar Estabelecimento"
+                icon="pi pi-plus"
+                iconPos="right"
+                (click)="showDialog()"
+            ></p-button>
+        </div>
+    </p-card>
+    </div>
+    <div *ngIf="laboratorio && laboratorio.id">
+        <p-card
+            header="{{laboratorio.nome}}"
+            [style]="{ width: '500px', border: '2px solid #D8DADC', 'box-shadow': '0 4px 8px rgba(0, 0, 0, 0.1)'}"
+        >
+            <ng-template pTemplate="header">
+                <img alt="Card" src="https://abramed.org.br/wp-content/uploads/2021/02/shutterstock_531253354-scaled.jpg" />
+            </ng-template>
+            <div class="p-col-12 p-md-6">
+                <span class="label"><strong>Razão Social:</strong></span>
+                <p>{{ laboratorio.razaoSocial }}</p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <span class="label"><strong>CNPJ:</strong></span>
+                <p>{{ laboratorio.cnpj }}</p>
+            </div>
+            <ng-template pTemplate="footer">
+                <div class="flex gap-3 mt-1 buttons-grid">
+                    <button
+                        class="view"
+                        type="button"
+                        pButton
+                        pRipple icon="pi pi-eye"
+                        (click)="showDialogView()"
+                    ></button>
+                    <button
+                        type="button"
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        (click)="showDialog()"
+                    ></button>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+<p-confirmDialog />
+<app-dialog-form
+    [visible]="visible"
+    [laboratory]="laboratorio!"
+    (closeDialog)="closeDialog()"
+></app-dialog-form>
+<app-dialog-view
+    [visible]="visivleView"
+    [laboratorio]="laboratorio!"
+    (closeDialogView)="closeDialog()"
+></app-dialog-view>

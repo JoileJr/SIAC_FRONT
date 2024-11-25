@@ -13,6 +13,9 @@
             formControlName="nome"
             placeholder="Nome"
             required />
+            <small *ngIf="signUpFg.controls.nome?.invalid" class="text-red-500 text-xs">
+                Nome é obrigatório.
+            </small>
         </div>
 
         <div class="input-group">
@@ -22,6 +25,9 @@
                 placeholder="CPF"
                 class="input"
             />
+            <small *ngIf="signUpFg.controls.cpf?.invalid" class="text-red-500 text-xs">
+                Cpf é obrigatório.
+            </small>
         </div>
 
         <div class="input-group">
@@ -33,7 +39,11 @@
             inputId="icondisplay"
             [iconDisplay]="'input'"
             class="input"
+            (keydown)="blockTyping($event)"
             />
+            <small *ngIf="signUpFg.controls.dataNascimento?.invalid" class="text-red-500 text-xs">
+                Data de Nascimento é obrigatório.
+            </small>
         </div>
 
         <div class="input-group">
@@ -49,26 +59,35 @@
                         {{ sex.label }}
                     </label>
                 </div>
+                <small *ngIf="signUpFg.controls.sexo?.invalid" class="text-red-500 text-xs">
+                    Genêro é obrigatório.
+                </small>
             </div>
         </div>
 
         <div class="input-group">
             <input
-            type="text"
-            pInputText
-            class="input"
-            formControlName="email"
-            placeholder="Email"
+                type="text"
+                pInputText
+                class="input"
+                formControlName="email"
+                placeholder="Email"
             />
+            <small *ngIf="signUpFg.controls.email?.invalid" class="text-red-500 text-xs">
+                Email é obrigatório.
+            </small>
         </div>
 
         <div class="input-group">
             <p-inputMask
-                mask="99-999999999"
+                mask="(99) 9999-9999"
                 formControlName="telefone"
                 placeholder="Telefone celular"
                 class="input"
             />
+            <small *ngIf="signUpFg.controls.telefone?.invalid" class="text-red-500 text-xs">
+                Telefone é obrigatório.
+            </small>
         </div>
 
         <div class="input-group">
@@ -78,7 +97,10 @@
                 optionLabel="label"
                 optionValue="value"
                 class="input"
-                 />
+            />
+            <small *ngIf="signUpFg.controls.perfis?.invalid" class="text-red-500 text-xs">
+                Escolha seu perfil.
+            </small>
         </div>
 
         <div class="input-group">
@@ -101,6 +123,9 @@
                     </ul>
                 </ng-template>
             </p-password>
+            <small *ngIf="signUpFg.controls.senha?.invalid" class="text-red-500 text-xs">
+                Senha é obrigatório.
+            </small>
         </div>
 
         <button type="submit" class="signup-btn" (click)="onSubmit()" [disabled]="signUpFg.invalid">Cadastre-se</button>

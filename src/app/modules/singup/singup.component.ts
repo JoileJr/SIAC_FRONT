@@ -1,14 +1,24 @@
-import { ChangeDetectionStrategy, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, signal, WritableSignal } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignUpRequest } from '../../core/interfaces/useCases/singup-request-dto';
 import { TipoUsuario } from '../../core/interfaces/enums/TipoUsuario';
 import { ToastService } from '../../core/services/toastr/toast.service';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
-import { catchError, finalize, take } from "rxjs/operators";
+import { finalize, take } from "rxjs/operators";
 import { HttpErrorResponse } from '@angular/common/http';
 
+interface IsignUpFg {
+    nome: FormControl<string | null>;
+    cpf: FormControl<string | null>;
+    telefone: FormControl<string | null>;
+    sexo: FormControl<string | null>;
+    email: FormControl<string | null>;
+    senha: FormControl<string | null>;
+    dataNascimento: FormControl<Date | null>;
+    perfis: FormControl<string | null>;
+}
 
 @Component({
   selector: 'app-singup',
@@ -16,15 +26,15 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './singup.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SingupComponent implements OnInit {
+export class SingupComponent {
     loading: WritableSignal<boolean> = signal(false);
 
-    signUpFg: FormGroup = new FormGroup({
-        nome: new FormControl<string | null>(null, [Validators.required]),
+    signUpFg: FormGroup<IsignUpFg> = new FormGroup({
+        nome: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÿ ]+$')]),
         cpf: new FormControl<string | null>(null, [Validators.required]),
         telefone: new FormControl<string | null>(null, [Validators.required]),
         sexo: new FormControl<string | null>(null, [Validators.required]),
-        email: new FormControl<string | null>(null, [Validators.required]),
+        email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
         senha: new FormControl<string | null>(null, [Validators.required]),
         dataNascimento: new FormControl<Date | null>(null, [Validators.required]),
         perfis: new FormControl<string | null>(null, [Validators.required])
@@ -47,16 +57,27 @@ export class SingupComponent implements OnInit {
         private router: Router,
     ) {}
 
-    ngOnInit(): void {
+    blockTyping(event: KeyboardEvent) {
+        event.preventDefault();
     }
 
     onSubmit(): void {
-      if (!this.signUpFg.valid) {
-        this.toastService.error("Atenção", "Dados Inválidos.");
-      }
+        if (!this.signUpFg.valid) {
+            this.toastService.error("Atenção", "Dados Inválidos.");
+        }
 
-      const signUpData: SignUpRequest = this.signUpFg.value;
-      this.authenticationService
+        const signUpData: SignUpRequest = {
+            nome: this.signUpFg.controls.nome?.value!,
+            cpf: this.signUpFg.controls.cpf?.value!,
+            telefone: this.signUpFg.controls.telefone?.value!,
+            sexo: this.signUpFg.controls.sexo?.value!,
+            email: this.signUpFg.controls.email?.value!,
+            senha: this.signUpFg.controls.senha?.value!,
+            dataNascimento: this.signUpFg.controls.dataNascimento?.value!,
+            perfis: this.signUpFg.controls.perfis?.value!,
+        };
+
+        this.authenticationService
             .doSingUp(signUpData)
             .pipe(
                 take(1),

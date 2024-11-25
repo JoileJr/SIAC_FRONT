@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #c5c5c5;
+    background-color: #f0f0f0;
   }
 
   .signup-form {
@@ -52,21 +52,6 @@
     border: 1px solid #dddfe2;
     border-radius: 4px;
     font-size: 16px;
-  }
-
-  .dob select {
-    width: 32%;
-    margin-right: 2%;
-  }
-
-  .gender {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .gender label {
-    font-size: 14px;
-    color: #606770;
   }
 
   .signup-btn {

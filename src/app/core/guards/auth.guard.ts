@@ -9,10 +9,10 @@ export const authGuard: CanActivateFn = () => {
 
     if (authService.hasAuthenticationToken()) {
         return true;
-    } 
+    }
 
     router.navigate([RoutesConstants.AUTH]);
-    return false; 
+    return false;
 };
 
 
@@ -20,9 +20,6 @@ export const authMatch: CanMatchFn = (route: Route, segments: UrlSegment[]) => {
     const authService = inject(AuthenticationService);
     if (authService.hasAuthenticationToken()) {
         return true;
-    } 
-
-    const userFeatures = authService.getUserFeatures();
-
-    return false;    
+    }
+    return false;
 };
