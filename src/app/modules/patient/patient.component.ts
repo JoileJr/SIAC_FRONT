@@ -28,7 +28,6 @@ export class PatientComponent implements OnInit {
 
     constructor(
       private patientService: PatientService,
-      private messageService: MessageService,
       private toastService: ToastService
     ) {}
 
@@ -71,6 +70,7 @@ export class PatientComponent implements OnInit {
 
     closeDialog() {
       this.dialogVisible = false;
+      this.onSubmit();
     }
 
     blockTyping(event: KeyboardEvent) {

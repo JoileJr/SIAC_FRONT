@@ -33,20 +33,6 @@ const routes: Routes = [
                 component: HomeComponent
             },
             {
-                path: "appointments",
-                loadChildren: () =>
-                    import("../appointments/appointment.module").then(
-                        (m) => m.AppointmentsModule,
-                    ),
-            },
-            {
-                path: "services",
-                loadChildren: () =>
-                    import("../services/services.module").then(
-                        (m) => m.ServicesModule,
-                    ),
-            },
-            {
                 path: "laboratory",
                 loadChildren: () =>
                     import("../laboratory/laboratory.module").then(
@@ -58,6 +44,13 @@ const routes: Routes = [
                 loadChildren: () =>
                     import("../patient/patient.module").then(
                         (m) => m.PatientModule,
+                    ),
+            },
+            {
+                path: "health-professional",
+                loadChildren: () =>
+                    import("../health-professional/health-professional.module").then(
+                        (m) => m.HealthProfessionalModule,
                     ),
             },
             {
