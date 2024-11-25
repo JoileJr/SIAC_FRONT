@@ -29,4 +29,8 @@ export class PatientService {
         return this.http.put<PessoaDTO>(`${this.apiUrl}${id}`, dto);
     }
 
+    findByID(id: number): Observable<PessoaDTO> {
+        return this.http.get<PessoaDTO>(`${this.apiUrl}${id}`);
+    }
+
 }

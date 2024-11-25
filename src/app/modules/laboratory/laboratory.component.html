@@ -1,4 +1,19 @@
 <div class="container">
+    <div *ngIf="!(laboratorio && laboratorio.id)" >
+        <p-card
+            header="Deseja cadastrar seu estabelecimento ?"
+        >
+        <div class="no-register">
+            <h4>Você ainda não cadastrou seu estabelecimento.</h4>
+            <p-button
+                label="Cadastrar Estabelecimento"
+                icon="pi pi-plus"
+                iconPos="right"
+                (click)="showDialog()"
+            ></p-button>
+        </div>
+    </p-card>
+    </div>
     <div *ngIf="laboratorio && laboratorio.id">
         <p-card
             header="{{laboratorio.nome}}"

@@ -38,12 +38,13 @@ export class DialogFormComponent implements OnChanges {
     labFg!: FormGroup<LabFg>;
 
     constructor(
-        private fb: FormBuilder,
         private toastService: ToastService,
         private labService: LabService,
         private cepService: CepService,
         private authService: AuthenticationService
-    ) {}
+    ) {
+        this.createForm(new LaboratorioDTO);
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['laboratory'] && changes['laboratory'].currentValue) {

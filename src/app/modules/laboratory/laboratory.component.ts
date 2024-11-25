@@ -5,6 +5,7 @@ import { LabService } from '../../core/services/laboratory/laboratory.service';
 import { take } from 'rxjs';
 import { ToastService } from '../../core/services/toastr/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PatientService } from '../../core/services/patient/patient.service';
 
 @Component({
   selector: 'app-laboratory',
@@ -21,10 +22,18 @@ export class LaboratoryComponent {
     constructor(
         private authService: AuthenticationService,
         private labService: LabService,
+        private pacienteService: PatientService,
         private toastService: ToastService,
         private cd: ChangeDetectorRef,
     ) {
-        this.getLabByID(this.user?.laboratorio?.id)
+        this.pacienteService.findByID(this.authService.user!.id!).subscribe(
+            {
+            next: (response) => {
+                this.user = response;
+                this.getLabByID(this.user?.laboratorio?.id)
+            },
+            error: (error: HttpErrorResponse) => {}}
+        )
     }
 
     showDialog() {
@@ -56,6 +65,7 @@ export class LaboratoryComponent {
                     this.toastService.success("Sucesso", "Busca realizado com sucesso.");
                 },
                 error: (error: HttpErrorResponse) => {
+                    this.laboratorio = new LaboratorioDTO();
                     this.toastService.error("Atenção", "Falha ao buscar laboratório.");
                 }
             });
