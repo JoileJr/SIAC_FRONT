@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TipoUsuario } from '../../core/interfaces/enums/TipoUsuario';
 import { ProfissionalSaudeDTO } from '../../core/interfaces/dtos/profissional-saude.dto';
 import { HealProfessionalService } from '../../core/services/health-professional/health-professional.service';
 import { ToastService } from '../../core/services/toastr/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthenticationService } from '../../core/services/authentication/authentication.service';
+import { take } from 'rxjs';
+import { LaboratorioDTO } from '../../core/interfaces/dtos/laboratorio.dto';
+import { LabService } from '../../core/services/laboratory/laboratory.service';
+import { PatientService } from '../../core/services/patient/patient.service';
+import { Message } from 'primeng/api';
 
 interface FilterFg {
     nome: FormControl<string | null>;
@@ -27,11 +33,27 @@ export class HealthProfessionalComponent {
     selectedPatient: ProfissionalSaudeDTO = new ProfissionalSaudeDTO();
     dialogVisible: boolean = false;
     tableVisible: boolean = false;
+    user = this.authService.user;
+    laboratorio?: LaboratorioDTO;
+    messages: Message[] | undefined;
 
     constructor(
         private professionalService: HealProfessionalService,
-        private toastService: ToastService
-    ) {}
+        private authService: AuthenticationService,
+        private toastService: ToastService,
+        private cd: ChangeDetectorRef,
+        private labService: LabService,
+        private patientService: PatientService,
+    ) {
+        this.patientService.findByID(this.authService.user!.id!).subscribe(
+            {
+            next: (response) => {
+                this.user = response;
+                this.getLabByID(this.user?.laboratorio?.id)
+            },
+            error: (error: HttpErrorResponse) => {}}
+        )
+    }
 
     filterFg: FormGroup<FilterFg> = new FormGroup({
         nome: new FormControl<string | null>(null),
@@ -104,5 +126,28 @@ export class HealthProfessionalComponent {
     closeDialog() {
         this.dialogVisible = false;
         this.onSubmit();
+    }
+
+    getLabByID(id?: number) {
+        if(!id){
+            this.toastService.error("Atenção", "Você ainda não cadastrou Laboratório.");
+            this.messages = [{ severity: 'info', detail: 'Você ainda não cadastrou Laboratório.' }];
+            return
+        }
+        this.labService
+            .getLabByID(id)
+            .pipe(
+                take(1),
+            ).subscribe({
+                next: (response) => {
+                    this.laboratorio = response;
+                    this.cd.markForCheck();
+                    this.toastService.success("Sucesso", "Busca realizado com sucesso.");
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.laboratorio = new LaboratorioDTO();
+                    this.toastService.error("Atenção", "Falha ao buscar laboratório.");
+                }
+            });
     }
 }

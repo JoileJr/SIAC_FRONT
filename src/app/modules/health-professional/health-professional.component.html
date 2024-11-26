@@ -1,5 +1,13 @@
 <div class="content flex flex-column align-items-center">
-    <div class="card flex flex-column p-5">
+    <div *ngIf="!(laboratorio && laboratorio.id)" >
+        <div class="card">
+            <p-messages
+                [(value)]="messages!"
+                [enableService]="false"
+                [closable]="false" />
+        </div>
+    </div>
+    <div *ngIf="laboratorio && laboratorio.id" class="card flex flex-column p-5">
         <p-card class="card-filter">
             <div class="flex flex-row align-items-center justify-content-between">
                 <h3>Funcionários</h3>
@@ -84,7 +92,7 @@
 
                         <div class="flex flex-column">
                             <p-inputMask
-                                mask="99999999?-aa"
+                                mask="999999-aa"
                                 formControlName="registroProfissional"
                                 placeholder="Registro Profissional"
                                 class="input"

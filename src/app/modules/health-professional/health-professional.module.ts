@@ -20,6 +20,7 @@ import { DialofFormComponent } from './dialof-form/dialof-form.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HealthProfessionalRoutingModule } from "./heallth-professional-routing.module";
 import { DropdownModule } from 'primeng/dropdown';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import { DropdownModule } from 'primeng/dropdown';
         CardModule,
         ConfirmDialogModule,
         InputNumberModule,
-        DropdownModule
+        DropdownModule,
+        MessagesModule
     ],
     exports: [],
     declarations: [
