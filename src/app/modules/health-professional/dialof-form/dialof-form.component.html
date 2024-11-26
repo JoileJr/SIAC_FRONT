@@ -90,6 +90,7 @@
                 [options]="perfilOptions"
                 formControlName="tipoProfissional"
                 optionLabel="value"
+                optionValue="value"
                 class="input"
                 [style]="{width: '15vw', color: 'black'}"
                 placeholder="Tipo Profissional"
@@ -109,6 +110,19 @@
             ></p-inputMask>
             <small *ngIf="patientFg.controls.registroProfissional?.invalid" class="text-red-500 text-xs">
                 Registro Profissional é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <p-inputMask
+                mask="aa"
+                formControlName="regiao"
+                placeholder="Região"
+                class="input"
+                required
+            ></p-inputMask>
+            <small *ngIf="patientFg.controls.regiao" class="text-red-500 text-xs">
+                Região é obrigatório.
             </small>
         </div>
 

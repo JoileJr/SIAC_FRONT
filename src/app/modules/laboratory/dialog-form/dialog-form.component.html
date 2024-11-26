@@ -51,11 +51,12 @@
         </div>
 
         <div class="input-group mt-2">
-            <input
-            mask="(99) 9999-9999"
-            formControlName="telefone"
-            placeholder="Telefone"
-            class="input"/>
+            <p-inputMask
+                mask="(99) 9999-9999"
+                formControlName="telefone"
+                placeholder="Telefone"
+                class="input"
+            />
             <small *ngIf="labFg.controls.telefone?.invalid" class="text-red-500 text-xs">
                 Telefone é obrigatório.
             </small>

@@ -1,10 +1,7 @@
 <div class="content flex flex-column align-items-center">
     <div *ngIf="!(laboratorio && laboratorio.id)" >
-        <div class="card">
-            <p-messages
-                [(value)]="messages!"
-                [enableService]="false"
-                [closable]="false" />
+        <div class="card message-container flex flex-column align-items-center">
+            <h1>Você precisa cadastrar seu estabelecimento antes.</h1>
         </div>
     </div>
     <div *ngIf="laboratorio && laboratorio.id" class="card flex flex-column p-5">
@@ -161,5 +158,6 @@
 <app-dialof-form
     [visible]="dialogVisible"
     [patient]="selectedPatient"
+    [laboratorio]="laboratorio!"
     (closeDialog)="closeDialog()">
 </app-dialof-form>

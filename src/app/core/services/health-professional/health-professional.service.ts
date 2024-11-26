@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { FilterPersonsRequest } from "../../interfaces/useCases/filter-person-request";
 import { ProfissionalSaudeDTO } from "../../interfaces/dtos/profissional-saude.dto";
+import { ProfissionalSaudeRequest } from "../../interfaces/useCases/profissional-saude.request.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class HealProfessionalService {
         return this.http.get<ProfissionalSaudeDTO[]>(`${this.apiUrl}`);
     }
 
-    create(dto: ProfissionalSaudeDTO): Observable<ProfissionalSaudeDTO> {
+    create(dto: ProfissionalSaudeRequest): Observable<ProfissionalSaudeDTO> {
         return this.http.post<ProfissionalSaudeDTO>(`${this.apiUrl}`, dto);
     }
 
@@ -25,7 +26,7 @@ export class HealProfessionalService {
         return this.http.post<ProfissionalSaudeDTO[]>(`${this.apiUrl}find`, dto);
     }
 
-    update(dto: ProfissionalSaudeDTO, id: number): Observable<ProfissionalSaudeDTO> {
+    update(dto: ProfissionalSaudeRequest, id: number): Observable<ProfissionalSaudeDTO> {
         return this.http.put<ProfissionalSaudeDTO>(`${this.apiUrl}${id}`, dto);
     }
 

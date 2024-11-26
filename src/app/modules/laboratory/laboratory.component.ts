@@ -29,14 +29,7 @@ export class LaboratoryComponent {
         private confirmationService: ConfirmationService,
         private messageService: MessageService
     ) {
-        this.pacienteService.findByID(this.authService.user!.id!).subscribe(
-            {
-            next: (response) => {
-                this.user = response;
-                this.getLabByID(this.user?.laboratorio?.id)
-            },
-            error: (error: HttpErrorResponse) => {}}
-        )
+        this.getLab();
     }
 
     showDialog() {
@@ -50,6 +43,18 @@ export class LaboratoryComponent {
     closeDialog() {
         this.visible = false;
         this.visivleView = false;
+        this.getLab();
+    }
+
+    getLab(){
+        this.pacienteService.findByID(this.authService.user!.id!).subscribe(
+            {
+            next: (response) => {
+                this.user = response;
+                this.getLabByID(this.user?.laboratorio?.id)
+            },
+            error: (error: HttpErrorResponse) => {}}
+        )
     }
 
     getLabByID(id?: number) {

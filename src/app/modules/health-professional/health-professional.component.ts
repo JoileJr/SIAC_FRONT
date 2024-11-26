@@ -35,7 +35,6 @@ export class HealthProfessionalComponent {
     tableVisible: boolean = false;
     user = this.authService.user;
     laboratorio?: LaboratorioDTO;
-    messages: Message[] | undefined;
 
     constructor(
         private professionalService: HealProfessionalService,
@@ -108,10 +107,6 @@ export class HealthProfessionalComponent {
     findPatients() {
         this.professionalService.getAll().subscribe({
           next: (data) => {
-            if(data.length === 0){
-                this.toastService.error("Atenção", "Nenhum funcionário encontrado");
-                return;
-            }
             this.patients = data;
             this.tableVisible = true;
             this.toastService.success("Sucesso", "Funcionários encontrados com sucesso.");
@@ -131,7 +126,6 @@ export class HealthProfessionalComponent {
     getLabByID(id?: number) {
         if(!id){
             this.toastService.error("Atenção", "Você ainda não cadastrou Laboratório.");
-            this.messages = [{ severity: 'info', detail: 'Você ainda não cadastrou Laboratório.' }];
             return
         }
         this.labService
