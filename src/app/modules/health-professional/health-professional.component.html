@@ -113,6 +113,45 @@
             </div>
         </p-card>
 
-
+        <div class="table mt-3">
+            <p-toast />
+            <p-table
+            [value]="patients"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            *ngIf="tableVisible"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cpf</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-patient>
+                    <tr>
+                        <td>{{ patient.nome }}</td>
+                        <td>{{ patient.cpf }}</td>
+                        <td>{{ patient.telefone }}</td>
+                        <td>{{ patient.email }}</td>
+                        <td>
+                            <button
+                                type="button"
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                (click)="selectPatient(patient)">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </div>
 </div>
+<app-dialof-form
+    [visible]="dialogVisible"
+    [patient]="selectedPatient"
+    (closeDialog)="closeDialog()">
+</app-dialof-form>

@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    width: 30vw;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input,
+.input-group select {
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.signup-btn {
+    background-color: #42b72a;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.signup-btn:disabled {
+    background-color: #cccccc;
+}
+
+
+p-password {
+    &::ng-deep {
+        input {
+            width: 15vw;
+        }
+    }
+}
+
+p-calendar {
+    &::ng-deep {
+        input {
+            width: 15vw;
+        }
+    }
+}
+
+p-inputMask {
+    &::ng-deep {
+        input {
+            width: 15vw;
+        }
+    }
+}
+
+p-radioButton {
+    &::ng-deep {
+        input {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+}
+
+p-selectButton {
+    &::ng-deep {
+        input {
+            width: 15vw;
+        }
+    }
+}

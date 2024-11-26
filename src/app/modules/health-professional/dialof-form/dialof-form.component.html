@@ -1,1 +1,117 @@
-<p>dialof-form works!</p>
+<p-dialog header="Cadastro de Profissional" [modal]="true" [(visible)]="visible" (onHide)="closeDialog.emit()">
+    <form [formGroup]="patientFg" (ngSubmit)="onSubmit()">
+        <div class="input-group mt-2">
+          <input
+            type="text"
+            pInputText
+            class="input"
+            formControlName="nome"
+            placeholder="Nome"
+            required />
+            <small *ngIf="patientFg.controls.nome?.invalid" class="text-red-500 text-xs">
+                Nome é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <p-calendar
+                formControlName="dataNascimento"
+                placeholder="Data Nascimento"
+                [showIcon]="true"
+                [showOnFocus]="false"
+                inputId="icondisplay"
+                [iconDisplay]="'input'"
+                [dateFormat]="'dd/mm/yy'"
+                class="input"
+            ></p-calendar>
+            <small *ngIf="patientFg.controls.dataNascimento?.invalid" class="text-red-500 text-xs">
+                Data de Nascimento é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <p-inputMask
+                mask="999.999.999-99"
+                formControlName="cpf"
+                placeholder="CPF"
+                class="input"
+            />
+            <small *ngIf="patientFg.controls.cpf?.invalid" class="text-red-500 text-xs">
+                Cpf é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <div class="flex flex-wrap gap-3 flex align-items-center">
+                <div *ngFor="let sex of sexOptions">
+                    <p-radioButton
+                        [inputId]="sex.value"
+                        [value]="sex.value"
+                        formControlName="sexo"
+                        class="input"
+                        />
+                    <label [for]="sex.key">
+                        {{ sex.label }}
+                    </label>
+                </div>
+                <small *ngIf="patientFg.controls.sexo?.invalid" class="text-red-500 text-xs">
+                    Genêro é obrigatório.
+                </small>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input
+                type="text"
+                pInputText
+                class="input"
+                formControlName="email"
+                placeholder="Email"
+            />
+            <small *ngIf="patientFg.controls.email?.invalid" class="text-red-500 text-xs">
+                Email é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <p-inputMask
+                mask="(99) 9999-9999"
+                formControlName="telefone"
+                placeholder="Telefone celular"
+                class="input"
+            />
+            <small *ngIf="patientFg.controls.telefone?.invalid" class="text-red-500 text-xs">
+                Telefone é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <p-dropdown
+                [options]="perfilOptions"
+                formControlName="tipoProfissional"
+                optionLabel="value"
+                class="input"
+                [style]="{width: '15vw', color: 'black'}"
+                placeholder="Tipo Profissional"
+            ></p-dropdown>
+            <small *ngIf="patientFg.controls.tipoProfissional?.invalid" class="text-red-500 text-xs">
+                Tipo Profissional é obrigatório.
+            </small>
+        </div>
+
+        <div class="input-group">
+            <p-inputMask
+                mask="999999-aa"
+                formControlName="registroProfissional"
+                placeholder="Registro Profissional"
+                class="input"
+                required
+            ></p-inputMask>
+            <small *ngIf="patientFg.controls.registroProfissional?.invalid" class="text-red-500 text-xs">
+                Registro Profissional é obrigatório.
+            </small>
+        </div>
+
+        <button type="submit" class="signup-btn" [disabled]="patientFg.invalid">Salvar</button>
+    </form>
+</p-dialog>

@@ -3,7 +3,6 @@ import { TipoUsuario } from "../enums/TipoUsuario";
 
 export class ProfissionalSaudeRequest {
     id?: number;
-
     nome!: string;
     cpf!: string;
     telefone!: string;
