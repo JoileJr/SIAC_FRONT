@@ -84,7 +84,7 @@
 
                         <div class="flex flex-column">
                             <p-inputMask
-                                mask="99999999?-aaa"
+                                mask="99999999?-aa"
                                 formControlName="registroProfissional"
                                 placeholder="Registro Profissional"
                                 class="input"
@@ -96,7 +96,9 @@
                                 [options]="perfilOptions"
                                 formControlName="tipoProfissional"
                                 optionLabel="value"
-                                placeholder="Selecione o Tipo" />
+                                class="input"
+                                [style]="{width: '300px', color: 'white'}"
+                                placeholder="Selecione o Tipo"
                             />
                         </div>
                     </div>

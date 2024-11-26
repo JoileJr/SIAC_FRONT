@@ -79,3 +79,12 @@ p-inputMask {
     }
 }
 
+p-dropdown {
+    &::ng-deep {
+        input {
+            width: 300px
+        }
+    }
+}
+
+
