@@ -98,12 +98,13 @@ export class HealthProfessionalComponent {
         const filterDto = new FilterHealthProfessionalRequest(
           this.filterFg.value.nome || undefined,
           this.filterFg.value.cpf || undefined,
-          this.filterFg.value.telefone || undefined,
           this.filterFg.value.email || undefined,
+          this.filterFg.value.telefone || undefined,
           this.filterFg.value.registroProfissional || undefined,
           this.filterFg.value.tipoProfissional || undefined,
           this.filterFg.value.dataNascimentoInicio || undefined,
-          this.filterFg.value.dataNascimentoFinal || undefined
+          this.filterFg.value.dataNascimentoFinal || undefined,
+          this.laboratorio
         );
 
         this.findPatients(filterDto);

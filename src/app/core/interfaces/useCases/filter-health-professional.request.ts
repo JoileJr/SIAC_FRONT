@@ -1,3 +1,5 @@
+import { LaboratorioDTO } from "../dtos/laboratorio.dto";
+
 export class FilterHealthProfessionalRequest {
     nome?: string;
     cpf?: string;
@@ -5,6 +7,7 @@ export class FilterHealthProfessionalRequest {
     telefone?: string;
     registroProfissional?: string;
     tipoProfissional?: string;
+    laboratorio?: LaboratorioDTO;
     dataInicio?: Date;
     dataFim?: Date;
 
@@ -16,7 +19,8 @@ export class FilterHealthProfessionalRequest {
       registroProfissional?: string | undefined,
       tipoProfissional?: string | undefined,
       dataInicio?: Date | undefined,
-      dataFim?: Date | undefined
+      dataFim?: Date | undefined,
+      laboratorio?: LaboratorioDTO | undefined
     ) {
       this.nome = nome;
       this.cpf = cpf;
@@ -26,5 +30,6 @@ export class FilterHealthProfessionalRequest {
       this.tipoProfissional = tipoProfissional;
       this.dataInicio = dataInicio;
       this.dataFim = dataFim;
+      this.laboratorio = laboratorio;
     }
 }
