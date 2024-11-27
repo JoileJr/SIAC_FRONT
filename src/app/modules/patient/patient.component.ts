@@ -70,7 +70,6 @@ export class PatientComponent implements OnInit {
 
     closeDialog() {
       this.dialogVisible = false;
-      this.onSubmit();
     }
 
     blockTyping(event: KeyboardEvent) {

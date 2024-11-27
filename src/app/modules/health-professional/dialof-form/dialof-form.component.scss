@@ -5,7 +5,7 @@
 }
 
 form {
-    width: 30vw;
+    width: 31vw;
 }
 
 .input-group {
@@ -37,7 +37,6 @@ form {
 .signup-btn:disabled {
     background-color: #cccccc;
 }
-
 
 p-password {
     &::ng-deep {
@@ -78,4 +77,9 @@ p-selectButton {
             width: 15vw;
         }
     }
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
 }
