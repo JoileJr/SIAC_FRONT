@@ -11,6 +11,7 @@ import { LaboratorioDTO } from '../../core/interfaces/dtos/laboratorio.dto';
 import { LabService } from '../../core/services/laboratory/laboratory.service';
 import { PatientService } from '../../core/services/patient/patient.service';
 import { Message } from 'primeng/api';
+import { FilterHealthProfessionalRequest } from '../../core/interfaces/useCases/filter-health-professional.request';
 
 interface FilterFg {
     nome: FormControl<string | null>;
@@ -94,18 +95,22 @@ export class HealthProfessionalComponent {
     }
 
     onSubmit() {
-        /*const filterDto = new FilterPersonsRequest(
+        const filterDto = new FilterHealthProfessionalRequest(
           this.filterFg.value.nome || undefined,
           this.filterFg.value.cpf || undefined,
+          this.filterFg.value.telefone || undefined,
+          this.filterFg.value.email || undefined,
+          this.filterFg.value.registroProfissional || undefined,
+          this.filterFg.value.tipoProfissional || undefined,
           this.filterFg.value.dataNascimentoInicio || undefined,
           this.filterFg.value.dataNascimentoFinal || undefined
-        );*/
+        );
 
-        this.findPatients();
+        this.findPatients(filterDto);
     }
 
-    findPatients() {
-        this.professionalService.getAll().subscribe({
+    findPatients(dto: FilterHealthProfessionalRequest) {
+        this.professionalService.findByFilter(dto).subscribe({
           next: (data) => {
             this.patients = data;
             this.tableVisible = true;
@@ -120,7 +125,6 @@ export class HealthProfessionalComponent {
 
     closeDialog() {
         this.dialogVisible = false;
-        this.onSubmit();
     }
 
     getLabByID(id?: number) {
@@ -136,11 +140,10 @@ export class HealthProfessionalComponent {
                 next: (response) => {
                     this.laboratorio = response;
                     this.cd.markForCheck();
-                    this.toastService.success("Sucesso", "Busca realizado com sucesso.");
                 },
                 error: (error: HttpErrorResponse) => {
                     this.laboratorio = new LaboratorioDTO();
-                    this.toastService.error("Atenção", "Falha ao buscar laboratório.");
+                    this.toastService.error("Atenção", "Você ainda não cadastrou seu laboratório.");
                 }
             });
     }

@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { FilterPersonsRequest } from "../../interfaces/useCases/filter-person-request";
 import { ProfissionalSaudeDTO } from "../../interfaces/dtos/profissional-saude.dto";
 import { ProfissionalSaudeRequest } from "../../interfaces/useCases/profissional-saude.request.dto";
+import { FilterHealthProfessionalRequest } from "../../interfaces/useCases/filter-health-professional.request";
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class HealProfessionalService {
         return this.http.post<ProfissionalSaudeDTO>(`${this.apiUrl}`, dto);
     }
 
-    findByFilter(dto: FilterPersonsRequest): Observable<ProfissionalSaudeDTO[]> {
+    findByFilter(dto: FilterHealthProfessionalRequest): Observable<ProfissionalSaudeDTO[]> {
         return this.http.post<ProfissionalSaudeDTO[]>(`${this.apiUrl}find`, dto);
     }
 

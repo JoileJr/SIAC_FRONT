@@ -15,4 +15,4 @@ export class FilterPersonsRequest {
       this.dataInicio = dataInicio;
       this.dataFim = dataFim;
     }
-  }
+}

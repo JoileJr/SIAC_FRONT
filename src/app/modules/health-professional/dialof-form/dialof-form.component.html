@@ -121,7 +121,7 @@
                 class="input"
                 required
             ></p-inputMask>
-            <small *ngIf="patientFg.controls.regiao" class="text-red-500 text-xs">
+            <small *ngIf="patientFg.controls.regiao?.invalid" class="text-red-500 text-xs">
                 Região é obrigatório.
             </small>
         </div>
