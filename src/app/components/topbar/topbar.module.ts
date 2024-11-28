@@ -2,8 +2,9 @@ import { NgModule } from "@angular/core";
 import { AvatarModule } from 'primeng/avatar';
 import { TopbarComponent } from "./topbar.component";
 import { SharedModule } from "../../core/shared/shared.module";
-import { SidebarModule } from "../sidebar/sidebar.module";
-
+import { MenubarModule } from 'primeng/menubar';
+import { ToastModule } from "primeng/toast";
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @NgModule({
     exports: [TopbarComponent],
@@ -11,7 +12,9 @@ import { SidebarModule } from "../sidebar/sidebar.module";
     imports: [
         SharedModule,
         AvatarModule,
-        SidebarModule,
+        MenubarModule,
+        TabMenuModule, 
+        ToastModule 
     ],
 })
 export class TopbarModule {}

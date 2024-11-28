@@ -13,3 +13,20 @@ h3 {
 i {
     cursor: pointer;
 }
+
+p-menubar {
+    &::ng-deep {
+        .p-menubar {
+            background-color: #007bff;
+        }
+    }
+}
+
+.p-menuitem-link:hover {
+    background-color: #0056b3;
+    border-radius: 5px;
+}
+
+p-menubar .p-menuitem-link {
+    color: #FFFFFF;
+}
