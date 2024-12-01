@@ -98,7 +98,7 @@ export class DialofFormComponent implements OnChanges {
             registroProfissional: this.patientFg.controls.registroProfissional?.value!,
             tipoProfissional: this.patientFg.controls.tipoProfissional?.value!,
             laboratorio: this.laboratorio,
-            regiao: this.patientFg.controls.tipoProfissional?.value!,
+            regiao: this.patientFg.controls.regiao?.value!,
             senha: undefined
         };
 
