@@ -25,6 +25,8 @@ export class TopbarComponent implements OnInit {
     ngOnInit() {
         if (this.user?.perfis[0].id == 1) {
             this.menusAdmin();
+        } else if (this.user?.perfis[0].id == 2) {
+            this.menusAdmin();
         } else {
             this.menusPac();
         }
@@ -58,6 +60,13 @@ export class TopbarComponent implements OnInit {
                 icon: 'pi pi-users',
                 command: () => {
                     this.redirectRoute(this.routesConstants.HEALTH_PROFESSIONAL);
+                }
+            },
+            {
+                label: 'Exames',
+                icon: 'pi pi-users',
+                command: () => {
+                    this.redirectRoute(this.routesConstants.EXAM);
                 }
             }
         ];

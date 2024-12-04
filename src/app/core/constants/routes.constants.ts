@@ -3,6 +3,7 @@ export const RoutesConstants = {
     LABORATORY: "/app/laboratory",
     PATIENT: "/app/patient",
     HOME: "/app/home",
+    EXAM: "/app/exam",
     ROOT_APP: "app",
     AUTH: "/auth",
     SINGUP: "/singup"

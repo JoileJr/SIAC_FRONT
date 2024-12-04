@@ -15,7 +15,7 @@
                     Data de Nascimento é obrigatório.
                 </small>
             </div>
-            
+
             <div class="input-group">
                 <p-inputMask mask="999.999.999-99" formControlName="cpf" placeholder="CPF" class="input" />
                 <small *ngIf="patientFg.controls.cpf?.invalid" class="text-red-500 text-xs">
@@ -44,14 +44,14 @@
                     Email é obrigatório.
                 </small>
         </div>
-            
+
             <div class="input-group">
-                <p-inputMask mask="(99) 9999-9999" formControlName="telefone" placeholder="Telefone celular" class="input" />
+                <p-inputMask mask="(99) 99999-9999" formControlName="telefone" placeholder="Telefone celular" class="input" />
                 <small *ngIf="patientFg.controls.telefone?.invalid" class="text-red-500 text-xs">
                     Telefone é obrigatório.
                 </small>
             </div>
-        
+
 
         <div class="row flex flex-row">
             <div class="input-group">

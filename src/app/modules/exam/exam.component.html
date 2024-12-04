@@ -1,0 +1,77 @@
+<div class="content flex flex-column align-items-center">
+    <div class="card flex flex-column p-5">
+        <p-card class="card-filter">
+            <div class="flex flex-row align-items-center justify-content-between">
+                <h3>Exames</h3>
+                <p-button
+                    label="Novo Exame"
+                    icon="pi pi-plus"
+                    iconPos="right"
+                    (onClick)="openDialog()"
+                />
+            </div>
+            <div>
+                <form
+                    class="flex flex-row justify-content-between mt-3"
+                    [formGroup]="filterFg"
+                >
+                    <div class="flex flex-column">
+                        <input
+                        type="text"
+                        pInputText
+                        class="input"
+                        formControlName="nome"
+                        placeholder="Nome"
+                        required />
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p-inputMask
+                            mask="999.999.999-99"
+                            formControlName="cpf"
+                            placeholder="CPF"
+                            class="input"
+                        />
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p-calendar
+                        formControlName="dataInicio"
+                        placeholder="Data Inicial"
+                        [showIcon]="true"
+                        [showOnFocus]="false"
+                        inputId="icondisplay"
+                        [iconDisplay]="'input'"
+                        class="input"
+                        (keydown)="blockTyping($event)"
+                        />
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p-calendar
+                        formControlName="dataFinal"
+                        placeholder="Data Final"
+                        [showIcon]="true"
+                        [showOnFocus]="false"
+                        inputId="icondisplay"
+                        [iconDisplay]="'input'"
+                        class="input"
+                        (keydown)="blockTyping($event)"
+                        />
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer-filter mt-5">
+                <div>
+                    <p-button label="Limpar" severity="secondary" class="button-filter" (click)="limparFormulario()" />
+                    <p-button label="Buscar" class="button-filter" (click)="onSubmit()" />
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>
+<app-dialog-form
+[visible]="dialogVisible"
+(closeDialog)="closeDialog()">
+></app-dialog-form>
