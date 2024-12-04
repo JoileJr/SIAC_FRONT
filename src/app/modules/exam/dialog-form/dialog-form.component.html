@@ -1,2 +1,25 @@
 <p-dialog header="Cadastro de exames" [modal]="true" [(visible)]="visible" (onHide)="closeDialog.emit()">
+    <form [formGroup]="resultadoForm" (ngSubmit)="onSubmit()">
+        <div formArrayName="resultados">
+          <div *ngFor="let resultado of resultados.controls; let i = index" [formGroupName]="i" class="parametro-item">
+            <label>{{ parametros[i].nome }}:</label>
+            <input formControlName="resultado" type="number" placeholder="Resultado" />
+            <small>({{ parametros[i].unidadeDeMedida }})</small>
+
+            <!-- Observação -->
+            <label for="observacao-{{i}}">Observação:</label>
+            <input formControlName="observacao" type="text" id="observacao-{{i}}" placeholder="Observação" />
+
+            <!-- Nível de Alerta -->
+            <label for="nivelDeAlerta-{{i}}">Nível de Alerta:</label>
+            <input formControlName="nivelDeAlerta" type="text" id="nivelDeAlerta-{{i}}" placeholder="Nível de Alerta" />
+
+            <div *ngIf="resultado.get('resultado')!.invalid && (resultado.get('resultado')!.dirty)">
+              <!-- <small *ngIf="resultado.get('resultado').errors?.required">Resultado obrigatório.</small> -->
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="resultadoForm.invalid">Enviar Resultados</button>
+      </form>
 </p-dialog>
