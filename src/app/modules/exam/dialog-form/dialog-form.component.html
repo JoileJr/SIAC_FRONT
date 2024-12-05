@@ -1,25 +1,48 @@
 <p-dialog header="Cadastro de exames" [modal]="true" [(visible)]="visible" (onHide)="closeDialog.emit()">
     <form [formGroup]="resultadoForm" (ngSubmit)="onSubmit()">
+        <div class="row flex flex-row">
+            <div class="input-group">
+                <p-dropdown [options]="typesExams" formControlName="tipoExame" optionLabel="nome"
+                    class="input" [style]="{width: '10vw', color: 'black'}" placeholder="Nível"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="row flex flex-row">
+            <div class="input-group">
+                <p-dropdown [options]="profissionaisSaude" formControlName="profissionalSaude" optionLabel="nome"
+                    class="input" [style]="{width: '14vw', color: 'black'}" placeholder="Profissional Responsável"></p-dropdown>
+            </div>
+            <div class="input-group">
+                <p-dropdown [options]="patients" formControlName="paciente" optionLabel="nome"
+                    class="input" [style]="{width: '14vw', color: 'black'}" placeholder="Paciente"></p-dropdown>
+            </div>
+        </div>
+
         <div formArrayName="resultados">
           <div *ngFor="let resultado of resultados.controls; let i = index" [formGroupName]="i" class="parametro-item">
             <label>{{ parametros[i].nome }}:</label>
-            <input formControlName="resultado" type="number" placeholder="Resultado" />
-            <small>({{ parametros[i].unidadeDeMedida }})</small>
 
-            <!-- Observação -->
-            <label for="observacao-{{i}}">Observação:</label>
-            <input formControlName="observacao" type="text" id="observacao-{{i}}" placeholder="Observação" />
+            <div class="row flex flex-row">
+                <div class="input-group">
+                    <input type="text" pInputText class="input" formControlName="resultado" placeholder="Resultado" />
+                    <small>({{ parametros[i].unidadeDeMedida }})</small>
+                </div>
 
-            <!-- Nível de Alerta -->
-            <label for="nivelDeAlerta-{{i}}">Nível de Alerta:</label>
-            <input formControlName="nivelDeAlerta" type="text" id="nivelDeAlerta-{{i}}" placeholder="Nível de Alerta" />
+                <div class="input-group">
+                    <!-- Observação -->
+                    <input id="observacao-{{i}}" type="text" pInputText class="input" formControlName="observacao" placeholder="Observação" />
+                </div>
 
-            <div *ngIf="resultado.get('resultado')!.invalid && (resultado.get('resultado')!.dirty)">
-              <!-- <small *ngIf="resultado.get('resultado').errors?.required">Resultado obrigatório.</small> -->
+                <div class="input-group">
+                    <!-- Nível de Alerta -->
+                    <p-dropdown id="nivelDeAlerta-{{i}}" [options]="alertOptions" formControlName="nivelDeAlerta" optionLabel="value" optionValue="value"
+                    class="input" [style]="{width: '7vw', color: 'black'}" placeholder="Nível"></p-dropdown>
+                    <small>Nivel de alerta</small>
+                </div>
             </div>
           </div>
         </div>
 
-        <button type="submit" [disabled]="resultadoForm.invalid">Enviar Resultados</button>
-      </form>
+        <button type="submit" class="signup-btn" [disabled]="resultadoForm.invalid">Enviar Resultados</button>
+    </form>
 </p-dialog>

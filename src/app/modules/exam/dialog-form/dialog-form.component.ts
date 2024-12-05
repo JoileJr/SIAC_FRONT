@@ -1,8 +1,11 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TipoExameDTO } from '../../../core/interfaces/dtos/tipo-exame.dto';
-import { TypeExamService } from './../../../core/services/typeExam/type-exam.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ParametroDTO } from '../../../core/interfaces/dtos/parametro.dto';
+import { PatientService } from '../../../core/services/patient/patient.service';
+import { PessoaDTO } from '../../../core/interfaces/dtos/pessoa.dto';
+import { TipoExameDTO } from '../../../core/interfaces/dtos/tipo-exame.dto';
+import { LaboratorioDTO } from '../../../core/interfaces/dtos/laboratorio.dto';
+import { ProfissionalSaudeDTO } from '../../../core/interfaces/dtos/profissional-saude.dto';
 
 export interface IResultadoForm {
     parametroId: FormControl<number | null>;
@@ -20,8 +23,18 @@ export interface IResultadoForm {
 })
 export class DialogFormComponent implements OnInit {
     @Input() visible: boolean = false;
+    @Input() typesExams!: TipoExameDTO[];
+    @Input() profissionaisSaude!: ProfissionalSaudeDTO[];
+    @Input() patients!: PessoaDTO[];
+    @Input() laboratorio!: LaboratorioDTO;
     @Output() closeDialog = new EventEmitter<void>();
     resultadoForm!: FormGroup;
+
+    alertOptions: any[] = [
+        { label: 'Alto', value: 'Alto' },
+        { label: 'Médio', value: 'Médio' },
+        { label: 'Baixo', value: 'Baixo' }
+    ];
 
     parametros: ParametroDTO[] = [
       { id: 1, nome: 'Hemoglobina', unidadeDeMedida: 'g/dL', valorReferenciaMinimo: '12.0', valorReferenciaMaximo: '16.0' },
@@ -36,18 +49,23 @@ export class DialogFormComponent implements OnInit {
       { id: 10, nome: 'Creatinina', unidadeDeMedida: 'mg/dL', valorReferenciaMinimo: '0.7', valorReferenciaMaximo: '1.3' }
     ];
 
-    constructor(private fb: FormBuilder) {}
+    constructor(
+        private fb: FormBuilder,
+        private patientService: PatientService,
+    ) {}
 
     ngOnInit(): void {
         this.resultadoForm = this.fb.group({
+            profissionalSaude: [null, Validators.required],
+            paciente: [null, Validators.required],
+            tipoExame: [null, Validators.required],
             resultados: this.fb.array(this.parametros.map(parametro => this.fb.group({
-              nome: [null],
               resultado: [null, [Validators.required]],
               observacao: [null, Validators.required],
               nivelDeAlerta: [null, Validators.required],
-              parametro: [parametro, Validators.required]
+              parametro: [parametro]
             })))
-          });
+        });
     }
 
     get resultados(): FormArray {

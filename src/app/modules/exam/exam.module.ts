@@ -21,7 +21,6 @@ import { TableModule } from "primeng/table";
 import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { SharedModule } from "../../core/shared/shared.module";
-import { ExameSangueComponent } from './dialog-form/exame-sangue/exame-sangue.component';
 
 @NgModule({
     imports: [
@@ -47,7 +46,10 @@ import { ExameSangueComponent } from './dialog-form/exame-sangue/exame-sangue.co
         MessagesModule
     ],
     exports: [],
-    declarations: [ExamComponent, DialogFormComponent, ExameSangueComponent],
+    declarations: [
+        ExamComponent,
+        DialogFormComponent
+    ],
     providers: [],
 })
 export class ExamModule {}
