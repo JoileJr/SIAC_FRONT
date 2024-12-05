@@ -6,6 +6,11 @@ import { PessoaDTO } from '../../../core/interfaces/dtos/pessoa.dto';
 import { TipoExameDTO } from '../../../core/interfaces/dtos/tipo-exame.dto';
 import { LaboratorioDTO } from '../../../core/interfaces/dtos/laboratorio.dto';
 import { ProfissionalSaudeDTO } from '../../../core/interfaces/dtos/profissional-saude.dto';
+import { ResultadoParametroDTO } from '../../../core/interfaces/dtos/resultado-parametro.dto';
+import { ExameDTO } from '../../../core/interfaces/dtos/exame.dto';
+import { ExamService } from '../../../core/services/exam/exam.service';
+import { ToastService } from '../../../core/services/toastr/toast.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface IResultadoForm {
     parametroId: FormControl<number | null>;
@@ -52,6 +57,8 @@ export class DialogFormComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private patientService: PatientService,
+        private exameService: ExamService,
+        private toastService: ToastService,
     ) {}
 
     ngOnInit(): void {
@@ -74,7 +81,36 @@ export class DialogFormComponent implements OnInit {
 
     onSubmit(): void {
         if (this.resultadoForm.valid) {
-          console.log('Formulário enviado com sucesso:', this.resultadoForm.value);
+            const exame: ExameDTO = {
+                dataExame: new Date(),
+                paciente: this.resultadoForm.get('paciente')?.value,
+                profissionalSaude: this.resultadoForm.get('profissionalSaude')?.value,
+                laboratorio: this.laboratorio,
+                tipoExame: this.resultadoForm.get('tipoExame')?.value,
+                resultadoParametros: this.resultados.controls.map((resultadoFormGroup, i) => {
+                    return {
+                        resultado: resultadoFormGroup.get('resultado')?.value,
+                        observacao: resultadoFormGroup.get('observacao')?.value,
+                        nivelDeAlerta: resultadoFormGroup.get('nivelDeAlerta')?.value,
+                        parametro: this.parametros[i]
+                    } as ResultadoParametroDTO;
+                })
+            };
+
+            console.log('Formulário enviado com sucesso:', exame);
+            this.criarExame(exame);
         }
     }
+
+    criarExame(dto: ExameDTO) {
+        this.exameService.create(dto).subscribe({
+          next: (data) => {
+            this.toastService.success("Sucesso", "Exame criado com sucesso.");
+          },
+          error: (error: HttpErrorResponse) => {
+              this.toastService.error("Atenção", "Falha ao criar exame.");
+          }
+        });
+    }
+
 }
