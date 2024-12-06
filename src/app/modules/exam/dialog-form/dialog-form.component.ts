@@ -1,5 +1,5 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { ParametroDTO } from '../../../core/interfaces/dtos/parametro.dto';
 import { PessoaDTO } from '../../../core/interfaces/dtos/pessoa.dto';
 import { TipoExameDTO } from '../../../core/interfaces/dtos/tipo-exame.dto';
@@ -10,6 +10,7 @@ import { ExamService } from '../../../core/services/exam/exam.service';
 import { ToastService } from '../../../core/services/toastr/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ExameDTO } from '../../../core/interfaces/dtos/exame.dto';
+import { TypeExamService } from '../../../core/services/typeExam/type-exam.service';
 
 export interface IResultadoForm {
     parametroId: FormControl<number | null>;
@@ -41,23 +42,14 @@ export class DialogFormComponent implements OnInit, OnChanges {
         { label: 'Baixo', value: 'Baixo' }
     ];
 
-    parametros: ParametroDTO[] = [
-      { id: 1, nome: 'Hemoglobina', unidadeDeMedida: 'g/dL', valorReferenciaMinimo: '12.0', valorReferenciaMaximo: '16.0' },
-      { id: 2, nome: 'Hemácias', unidadeDeMedida: 'milhões/mm³', valorReferenciaMinimo: '4.5', valorReferenciaMaximo: '5.5'},
-      { id: 3, nome: 'Hematócrito', unidadeDeMedida: '%', valorReferenciaMinimo: '36', valorReferenciaMaximo: '50' },
-      { id: 4, nome: 'Leucócitos', unidadeDeMedida: '/mm³', valorReferenciaMinimo: '4000', valorReferenciaMaximo: '11000' },
-      { id: 5, nome: 'Plaquetas', unidadeDeMedida: 'mil/mm³', valorReferenciaMinimo: '150', valorReferenciaMaximo: '400' },
-      { id: 6, nome: 'Glicose', unidadeDeMedida: 'mg/dL', valorReferenciaMinimo: '70', valorReferenciaMaximo: '99' },
-      { id: 7, nome: 'Colesterol Total', unidadeDeMedida: 'mg/dL', valorReferenciaMinimo: '0', valorReferenciaMaximo: '200' },
-      { id: 8, nome: 'Colesterol HDL', unidadeDeMedida: 'mg/dL', valorReferenciaMinimo: '40', valorReferenciaMaximo: '60' },
-      { id: 9, nome: 'Triglicerídeos', unidadeDeMedida: 'mg/dL', valorReferenciaMinimo: '0', valorReferenciaMaximo: '150' },
-      { id: 10, nome: 'Creatinina', unidadeDeMedida: 'mg/dL', valorReferenciaMinimo: '0.7', valorReferenciaMaximo: '1.3' }
-    ];
+    parametros: ParametroDTO[] = [];
 
     constructor(
         private fb: FormBuilder,
         private exameService: ExamService,
         private toastService: ToastService,
+        private tpExamService: TypeExamService,
+        private cd: ChangeDetectorRef,
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -69,6 +61,10 @@ export class DialogFormComponent implements OnInit, OnChanges {
             if(!this.selectedExam){
                 this.criaResultadoForm();
             }
+        }
+
+        if (changes['typesExams'] && this.resultadoForm.get('tipoExame')?.value) {
+            this.findParamsByTypeExams(this.resultadoForm.get('tipoExame')?.value);
         }
     }
 
@@ -83,13 +79,13 @@ export class DialogFormComponent implements OnInit, OnChanges {
             profissionalSaude: [null, Validators.required],
             paciente: [null, Validators.required],
             tipoExame: [null, Validators.required],
-            resultados: this.fb.array(this.parametros.map(parametro => this.fb.group({
-                id: [null],
-                resultado: [null, [Validators.required]],
-                observacao: [null, Validators.required],
-                nivelDeAlerta: [null, Validators.required],
-                parametro: [parametro]
-            })))
+            resultados: this.fb.array([])
+        });
+
+        this.resultadoForm.get('tipoExame')?.valueChanges.subscribe(typeExame => {
+            if (typeExame) {
+                this.findParamsByTypeExams(typeExame);
+            }
         });
     }
 
@@ -163,6 +159,49 @@ export class DialogFormComponent implements OnInit, OnChanges {
 
     blockTyping(event: KeyboardEvent) {
         event.preventDefault();
+    }
+
+    findParamsByTypeExams(typeExam: TipoExameDTO) {
+        if (!typeExam.id) {
+            return;
+        }
+        this.tpExamService.getParameterByTypeExam(typeExam.id).subscribe({
+            next: (data) => {
+                this.parametros = data;
+                this.createResultadoFields();
+                this.cd.markForCheck();
+            },
+            error: (error: HttpErrorResponse) => {
+                console.error('Erro ao buscar parâmetros:', error);
+            }
+        });
+    }
+
+    createResultadoFields() {
+        const resultadosArray = this.resultadoForm.get('resultados') as FormArray;
+        resultadosArray.clear();
+
+        if(this.selectedExam?.resultadoParametros){
+            this.selectedExam.resultadoParametros.forEach(obj => {
+                resultadosArray.push(this.fb.group({
+                    id: [obj.id],
+                    resultado: [obj.resultado, [Validators.required]],
+                    observacao: [obj.observacao, Validators.required],
+                    nivelDeAlerta: [obj.nivelDeAlerta, Validators.required],
+                    parametro: [obj.parametro]
+                }));
+            });
+        } else {
+            this.parametros.forEach(parametro => {
+                resultadosArray.push(this.fb.group({
+                    id: [null],
+                    resultado: [null, [Validators.required]],
+                    observacao: [null, Validators.required],
+                    nivelDeAlerta: [null, Validators.required],
+                    parametro: [parametro]
+                }));
+            });
+        }
     }
 
 }
