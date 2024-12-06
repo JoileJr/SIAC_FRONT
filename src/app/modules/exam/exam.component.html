@@ -38,27 +38,29 @@
 
                     <div class="flex flex-column">
                         <p-calendar
-                        formControlName="dataInicio"
-                        placeholder="Data Inicial"
-                        [showIcon]="true"
-                        [showOnFocus]="false"
-                        inputId="icondisplay"
-                        [iconDisplay]="'input'"
-                        class="input"
-                        (keydown)="blockTyping($event)"
+                            formControlName="dataInicio"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Data Inicial"
+                            [showIcon]="true"
+                            [showOnFocus]="false"
+                            inputId="icondisplay"
+                            [iconDisplay]="'input'"
+                            class="input"
+                            (keydown)="blockTyping($event)"
                         />
                     </div>
 
                     <div class="flex flex-column">
                         <p-calendar
-                        formControlName="dataFinal"
-                        placeholder="Data Final"
-                        [showIcon]="true"
-                        [showOnFocus]="false"
-                        inputId="icondisplay"
-                        [iconDisplay]="'input'"
-                        class="input"
-                        (keydown)="blockTyping($event)"
+                            formControlName="dataFinal"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Data Final"
+                            [showIcon]="true"
+                            [showOnFocus]="false"
+                            inputId="icondisplay"
+                            [iconDisplay]="'input'"
+                            class="input"
+                            (keydown)="blockTyping($event)"
                         />
                     </div>
                 </form>
@@ -100,7 +102,7 @@
                                 pButton
                                 pRipple
                                 icon="pi pi-pencil"
-                            >
+                                (click)="selectExam(exam)">
                             </button>
                         </td>
                     </tr>
@@ -114,6 +116,7 @@
 [typesExams]="typesExams"
 [visible]="dialogVisible"
 [laboratorio]="laboratorio"
+[selectedExam]="selectedExam"
 [profissionaisSaude]="profissionaisSaude"
 (closeDialog)="closeDialog()">
 ></app-dialog-form>

@@ -36,28 +36,30 @@
 
                     <div class="flex flex-column">
                         <p-calendar
-                        formControlName="dataNascimentoInicio"
-                        placeholder="Data Inicial de Nascimento"
-                        [showIcon]="true"
-                        [showOnFocus]="false"
-                        inputId="icondisplay"
-                        [iconDisplay]="'input'"
-                        class="input"
-                        (keydown)="blockTyping($event)"
-                        />
+                            dateFormat="dd/mm/yy"
+                            formControlName="dataNascimentoInicio"
+                            placeholder="Data Inicial de Nascimento"
+                            [showIcon]="true"
+                            [showOnFocus]="false"
+                            inputId="icondisplay"
+                            [iconDisplay]="'input'"
+                            class="input"
+                            (keydown)="blockTyping($event)"
+                            />
                     </div>
 
                     <div class="flex flex-column">
                         <p-calendar
-                        formControlName="dataNascimentoFinal"
-                        placeholder="Data Final de Nascimento"
-                        [showIcon]="true"
-                        [showOnFocus]="false"
-                        inputId="icondisplay"
-                        [iconDisplay]="'input'"
-                        class="input"
-                        (keydown)="blockTyping($event)"
-                        />
+                            dateFormat="dd/mm/yy"
+                            formControlName="dataNascimentoFinal"
+                            placeholder="Data Final de Nascimento"
+                            [showIcon]="true"
+                            [showOnFocus]="false"
+                            inputId="icondisplay"
+                            [iconDisplay]="'input'"
+                            class="input"
+                            (keydown)="blockTyping($event)"
+                            />
                     </div>
                 </form>
             </div>

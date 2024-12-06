@@ -10,7 +10,7 @@
         <div class="row flex flex-row">
             <div class="input-group">
                 <p-calendar formControlName="dataNascimento" placeholder="Data Nascimento" [showIcon]="true" [showOnFocus]="false"
-                    inputId="icondisplay" [iconDisplay]="'input'" [dateFormat]="'dd/mm/yy'" class="input"></p-calendar>
+                    inputId="icondisplay" [iconDisplay]="'input'" [dateFormat]="'dd/mm/yy'" class="input" dateFormat="dd/mm/yy"></p-calendar>
                 <small *ngIf="patientFg.controls.dataNascimento?.invalid" class="text-red-500 text-xs">
                     Data de Nascimento é obrigatório.
                 </small>

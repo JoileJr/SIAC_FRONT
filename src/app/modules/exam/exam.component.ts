@@ -34,6 +34,7 @@ export class ExamComponent {
     dialogVisible: boolean = false;
     typesExams: TipoExameDTO[] = [];
     exams: ExameDTO[] = [];
+    selectedExam?: ExameDTO;
     profissionaisSaude: ProfissionalSaudeDTO[] = [];
     patients: PessoaDTO[] = [];
     user = this.authService.user;
@@ -110,7 +111,16 @@ export class ExamComponent {
         this.findExamsByFilter(filter)
     }
 
-    openDialog() {
+    selectExam(exame: ExameDTO) {
+        this.openDialog(exame);
+    }
+
+    openDialog(exame?: ExameDTO) {
+        if (exame) {
+            this.selectedExam = exame;
+        } else {
+            this.selectedExam = undefined;
+        }
         this.dialogVisible = true;
     }
 

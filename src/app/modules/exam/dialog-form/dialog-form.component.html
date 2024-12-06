@@ -3,7 +3,21 @@
         <div class="row flex flex-row">
             <div class="input-group">
                 <p-dropdown [options]="typesExams" formControlName="tipoExame" optionLabel="nome"
-                    class="input" [style]="{width: '10vw', color: 'black'}" placeholder="Nível"></p-dropdown>
+                    class="input" [style]="{width: '14vw', color: 'black'}" placeholder="Nível"></p-dropdown>
+            </div>
+            <div class="input-group">
+                <p-calendar
+                    formControlName="dataExame"
+                    dateFormat="dd/mm/yy"
+                    placeholder="Data do Exame"
+                    [showIcon]="true"
+                    [showOnFocus]="false"
+                    inputId="icondisplay"
+                    [iconDisplay]="'input'"
+                    class="input"
+                    [style]="{width: '14vw'}"
+                    (keydown)="blockTyping($event)"
+                    />
             </div>
         </div>
 
