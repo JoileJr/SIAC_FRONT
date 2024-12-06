@@ -1,7 +1,6 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ParametroDTO } from '../../../core/interfaces/dtos/parametro.dto';
-import { PatientService } from '../../../core/services/patient/patient.service';
 import { PessoaDTO } from '../../../core/interfaces/dtos/pessoa.dto';
 import { TipoExameDTO } from '../../../core/interfaces/dtos/tipo-exame.dto';
 import { LaboratorioDTO } from '../../../core/interfaces/dtos/laboratorio.dto';
@@ -56,7 +55,6 @@ export class DialogFormComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private patientService: PatientService,
         private exameService: ExamService,
         private toastService: ToastService,
     ) {}
@@ -104,13 +102,19 @@ export class DialogFormComponent implements OnInit {
 
     criarExame(dto: ExameDTO) {
         this.exameService.create(dto).subscribe({
-          next: (data) => {
-            this.toastService.success("Sucesso", "Exame criado com sucesso.");
-          },
-          error: (error: HttpErrorResponse) => {
-              this.toastService.error("Atenção", "Falha ao criar exame.");
-          }
+            next: (data) => {
+                this.toastService.success("Sucesso", "Exame criado com sucesso.");
+                this.hideDialog();
+            },
+            error: (error: HttpErrorResponse) => {
+                this.toastService.error("Atenção", "Falha ao criar exame.");
+            }
         });
+    }
+
+    hideDialog() {
+        this.visible = false;
+        this.closeDialog.emit();
     }
 
 }

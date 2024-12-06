@@ -1,3 +1,4 @@
+import { FilterExamRequest } from './../../core/interfaces/useCases/filter-exam.request';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TypeExamService } from '../../core/services/typeExam/type-exam.service';
@@ -13,10 +14,12 @@ import { FilterHealthProfessionalRequest } from '../../core/interfaces/useCases/
 import { HealProfessionalService } from '../../core/services/health-professional/health-professional.service';
 import { ProfissionalSaudeDTO } from '../../core/interfaces/dtos/profissional-saude.dto';
 import { PessoaDTO } from '../../core/interfaces/dtos/pessoa.dto';
+import { ExamService } from '../../core/services/exam/exam.service';
+import { ExameDTO } from '../../core/interfaces/dtos/exame.dto';
 
 interface FilterFg {
     cpf: FormControl<string | null>;
-    tipoExame: FormControl<string | null>;
+    tipoExame: FormControl<number | null>;
     dataInicio: FormControl<Date | null>;
     dataFinal: FormControl<Date | null>;
 }
@@ -30,10 +33,12 @@ interface FilterFg {
 export class ExamComponent {
     dialogVisible: boolean = false;
     typesExams: TipoExameDTO[] = [];
+    exams: ExameDTO[] = [];
     profissionaisSaude: ProfissionalSaudeDTO[] = [];
     patients: PessoaDTO[] = [];
     user = this.authService.user;
     laboratorio!: LaboratorioDTO;
+    tableVisible: boolean = false;
 
     constructor(
         private tpExamService: TypeExamService,
@@ -42,7 +47,8 @@ export class ExamComponent {
         private labService: LabService,
         private pacienteService: PatientService,
         private authService: AuthenticationService,
-        private professionalService: HealProfessionalService
+        private professionalService: HealProfessionalService,
+        private examService: ExamService
     ) {
         this.findTypeExams();
         this.getLab();
@@ -55,7 +61,7 @@ export class ExamComponent {
 
     filterFg: FormGroup<FilterFg> = new FormGroup({
         cpf: new FormControl<string | null>(null),
-        tipoExame: new FormControl<string | null>(null),
+        tipoExame: new FormControl<number | null>(null),
         dataInicio: new FormControl<Date | null>(null),
         dataFinal: new FormControl<Date | null>(null)
     });
@@ -75,10 +81,33 @@ export class ExamComponent {
         });
     }
 
+    findExamsByFilter(filter: FilterExamRequest) {
+        this.examService.findByFilter(filter).subscribe({
+          next: (data) => {
+            this.toastService.success("Sucesso", "Busca de exames realizada com sucesso.");
+            this.exams = data;
+            this.cd.markForCheck();
+            this.tableVisible = true;
+          },
+          error: (error: HttpErrorResponse) => {
+            this.toastService.error("Atenção", "Falha ao buscar exames.");
+            this.tableVisible = false;
+          }
+        });
+    }
+
     limparFormulario() {
+        this.filterFg.reset();
     }
 
     onSubmit() {
+        const filter: FilterExamRequest = {
+            cpf: this.filterFg.value.cpf || undefined,
+            tipoExame: this.filterFg.value.tipoExame || undefined,
+            dataInicio: this.filterFg.value.dataInicio || undefined,
+            dataFim: this.filterFg.value.dataFinal || undefined
+        }
+        this.findExamsByFilter(filter)
     }
 
     openDialog() {
@@ -96,7 +125,8 @@ export class ExamComponent {
                 this.user = response;
                 this.getLabByID(this.user?.laboratorio?.id)
             },
-            error: (error: HttpErrorResponse) => {}}
+            error: (error: HttpErrorResponse) => {
+            }}
         )
     }
 
@@ -144,6 +174,16 @@ export class ExamComponent {
               this.toastService.error("Atenção", "Falha ao realizar busca.");
           }
         });
+    }
+
+    formatToDDMMYYYY(dateString: string): string {
+        const date = new Date(dateString);
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        return `${day}/${month}/${year}`;
     }
 
 }
