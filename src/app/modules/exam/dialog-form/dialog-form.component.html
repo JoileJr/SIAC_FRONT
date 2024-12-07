@@ -38,7 +38,13 @@
 
             <div class="row flex flex-row">
                 <div class="input-group">
-                    <input type="text" pInputText class="input" formControlName="resultado" placeholder="Resultado" />
+                    <p-inputMask
+                        mask="{{parametros[i].mascara}}"
+                        formControlName="resultado"
+                        placeholder="Resultado"
+                        class="input"
+                        [style]="{width: '10vw'}"
+                    />
                     <small>({{ parametros[i].unidadeDeMedida }})</small>
                 </div>
 

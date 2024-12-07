@@ -87,6 +87,11 @@ export class DialogFormComponent implements OnInit, OnChanges {
                 this.findParamsByTypeExams(typeExame);
             }
         });
+
+        // Habilita o campo tipoExame no caso de um novo exame
+        if (!this.selectedExam) {
+            this.resultadoForm.get('tipoExame')?.enable();
+        }
     }
 
     get resultados(): FormArray {
@@ -155,6 +160,8 @@ export class DialogFormComponent implements OnInit, OnChanges {
                 });
             }
         });
+
+        this.resultadoForm.get('tipoExame')?.disable();
     }
 
     blockTyping(event: KeyboardEvent) {
