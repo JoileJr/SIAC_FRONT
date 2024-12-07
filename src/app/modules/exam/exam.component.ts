@@ -196,4 +196,18 @@ export class ExamComponent {
         return `${day}/${month}/${year}`;
     }
 
+    downloadRelatorio(exame: ExameDTO): void {
+        if(!exame.id){
+            return
+        }
+        this.examService.exportarRelatorio(exame.id).subscribe((pdfBlob) => {
+          const blobUrl = window.URL.createObjectURL(pdfBlob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = `Exame ${exame.paciente.nome}.pdf`;
+          link.click();
+          window.URL.revokeObjectURL(blobUrl);
+        });
+      }
+
 }
