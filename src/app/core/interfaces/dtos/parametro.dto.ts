@@ -6,5 +6,6 @@ export class ParametroDTO {
     unidadeDeMedida!: string;
     valorReferenciaMinimo!: string;
     valorReferenciaMaximo!: string;
+    mascara!: string;
     tipoExame?: TipoExameDTO;
 }

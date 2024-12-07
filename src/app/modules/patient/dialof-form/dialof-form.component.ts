@@ -14,6 +14,7 @@ interface IsignUpFg {
     telefone: FormControl<string | null>;
     sexo: FormControl<string | null>;
     email: FormControl<string | null>;
+    senha: FormControl<string | null>;
     dataNascimento: FormControl<Date | null>;
     perfis: FormControl<string | null>;
 }
@@ -48,11 +49,12 @@ export class DialofFormComponent implements OnChanges {
             telefone: new FormControl<string | null>(patient.telefone, [Validators.required]),
             sexo: new FormControl<string | null>(patient.sexo, [Validators.required]),
             email: new FormControl<string | null>(patient.email, [Validators.required, Validators.email]),
+            senha: new FormControl<string | null>(null),
             dataNascimento: new FormControl<Date | null>(
                 patient.dataNascimento ? new Date(patient.dataNascimento) : null,
                 [Validators.required]
             ),
-            perfis: new FormControl<string | null>(patient.perfis)
+            perfis: new FormControl<string | null>(patient.perfis),
         });
     }
 
@@ -67,6 +69,11 @@ export class DialofFormComponent implements OnChanges {
             this.toastService.error("Atenção", "Dados Inválidos.");
         }
 
+        let senha = undefined;
+        if(this.patientFg.controls.senha?.value){
+            senha = this.patientFg.controls.senha.value;
+        }
+
         const pessoaDTO: PessoaDTO = {
             nome: this.patientFg.controls.nome?.value!,
             cpf: this.patientFg.controls.cpf?.value!,
@@ -75,6 +82,7 @@ export class DialofFormComponent implements OnChanges {
             email: this.patientFg.controls.email?.value!,
             dataNascimento: this.patientFg.controls.dataNascimento?.value!,
             perfis: this.patientFg.controls.perfis?.value!,
+            senha: senha
         };
 
         if (this.patient.id){

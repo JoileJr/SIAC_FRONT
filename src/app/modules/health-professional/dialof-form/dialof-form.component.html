@@ -45,14 +45,6 @@
                 </small>
         </div>
 
-            <div class="input-group">
-                <p-inputMask mask="(99) 99999-9999" formControlName="telefone" placeholder="Telefone celular" class="input" />
-                <small *ngIf="patientFg.controls.telefone?.invalid" class="text-red-500 text-xs">
-                    Telefone é obrigatório.
-                </small>
-            </div>
-
-
         <div class="row flex flex-row">
             <div class="input-group">
                 <p-dropdown [options]="perfilOptions" formControlName="tipoProfissional" optionLabel="value" optionValue="value"
@@ -63,19 +55,54 @@
             </div>
 
             <div class="input-group">
+                <p-inputMask mask="(99) 99999-9999" formControlName="telefone" placeholder="Telefone celular" class="input" />
+                <small *ngIf="patientFg.controls.telefone?.invalid" class="text-red-500 text-xs">
+                    Telefone é obrigatório.
+                </small>
+            </div>
+        </div>
+
+
+        <div class="row flex flex-row">
+            <div class="input-group">
                 <p-inputMask mask="999999-aa" formControlName="registroProfissional" placeholder="Registro Profissional"
                     class="input" required></p-inputMask>
                 <small *ngIf="patientFg.controls.registroProfissional?.invalid" class="text-red-500 text-xs">
                     Registro Profissional é obrigatório.
                 </small>
             </div>
+
+            <div class="input-group">
+                <p-inputMask mask="aa" formControlName="regiao" placeholder="Região" class="input" required
+                    [style]="{width: '10vw'}"></p-inputMask>
+                <small *ngIf="patientFg.controls.regiao?.invalid" class="text-red-500 text-xs">
+                    Região é obrigatório.
+                </small>
+            </div>
         </div>
 
         <div class="input-group">
-            <p-inputMask mask="aa" formControlName="regiao" placeholder="Região" class="input" required
-                [style]="{width: '10vw'}"></p-inputMask>
-            <small *ngIf="patientFg.controls.regiao?.invalid" class="text-red-500 text-xs">
-                Região é obrigatório.
+            <p-password
+                formControlName="senha"
+                [toggleMask]="true"
+                promptLabel="Escolha uma senha"
+                weakLabel="Senha Fraca"
+                mediumLabel="Senha Média"
+                strongLabel="Senha Forte"
+                placeholder="Senha"
+                class="input"
+            >
+                <ng-template pTemplate="footer">
+                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                        <li>Pelo menos uma minuscula</li>
+                        <li>Pelo menos uma maiuscula</li>
+                        <li>Pelo menos uma numérica</li>
+                        <li>Mínimo 8 caracteres</li>
+                    </ul>
+                </ng-template>
+            </p-password>
+            <small *ngIf="patientFg.controls.senha?.invalid" class="text-red-500 text-xs">
+                Senha é obrigatório.
             </small>
         </div>
 

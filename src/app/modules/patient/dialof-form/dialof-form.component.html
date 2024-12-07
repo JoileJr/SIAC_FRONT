@@ -74,16 +74,40 @@
             </small>
         </div>
 
-        <div class="input-group">
-            <p-inputMask
-                mask="(99) 99999-9999"
-                formControlName="telefone"
-                placeholder="Telefone celular"
-                class="input"
-            />
-            <small *ngIf="patientFg.controls.telefone?.invalid" class="text-red-500 text-xs">
-                Telefone é obrigatório.
-            </small>
+        <div class="flex flex-row justify-content-between">
+            <div class="input-group">
+                <p-inputMask
+                    mask="(99) 99999-9999"
+                    formControlName="telefone"
+                    placeholder="Telefone celular"
+                    class="input"
+                />
+                <small *ngIf="patientFg.controls.telefone?.invalid" class="text-red-500 text-xs">
+                    Telefone é obrigatório.
+                </small>
+            </div>
+
+            <div class="input-group">
+                <p-password
+                    formControlName="senha"
+                    [toggleMask]="true"
+                    promptLabel="Escolha uma senha"
+                    weakLabel="Senha Fraca"
+                    mediumLabel="Senha Média"
+                    strongLabel="Senha Forte"
+                    placeholder="Senha"
+                    class="input"
+                >
+                    <ng-template pTemplate="footer">
+                        <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                            <li>Pelo menos uma minuscula</li>
+                            <li>Pelo menos uma maiuscula</li>
+                            <li>Pelo menos uma numérica</li>
+                            <li>Mínimo 8 caracteres</li>
+                        </ul>
+                    </ng-template>
+                </p-password>
+            </div>
         </div>
 
         <button type="submit" class="signup-btn" [disabled]="patientFg.invalid">Salvar</button>

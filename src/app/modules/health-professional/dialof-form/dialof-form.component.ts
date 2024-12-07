@@ -13,6 +13,7 @@ interface IsignUpFg {
     nome: FormControl<string | null>;
     cpf: FormControl<string | null>;
     telefone: FormControl<string | null>;
+    senha: FormControl<string | undefined>;
     sexo: FormControl<string | null>;
     regiao: FormControl<string | null>;
     email: FormControl<string | null>;
@@ -51,6 +52,7 @@ export class DialofFormComponent implements OnChanges {
             nome: new FormControl<string | null>(patient.nome, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÿ ]+$')]),
             cpf: new FormControl<string | null>(patient.cpf, [Validators.required]),
             telefone: new FormControl<string | null>(patient.telefone, [Validators.required]),
+            senha: new FormControl<string | undefined>(patient.senha),
             sexo: new FormControl<string | null>(patient.sexo, [Validators.required]),
             regiao: new FormControl<string | null>(patient.regiao, [Validators.required]),
             email: new FormControl<string | null>(patient.email, [Validators.required, Validators.email]),
@@ -87,6 +89,11 @@ export class DialofFormComponent implements OnChanges {
             this.toastService.error("Atenção", "Dados Inválidos.");
         }
 
+        let senha = undefined;
+        if(this.patientFg.controls.senha?.value){
+            senha = this.patientFg.controls.senha.value;
+        }
+
         const pessoaDTO: ProfissionalSaudeRequest = {
             nome: this.patientFg.controls.nome?.value!,
             cpf: this.patientFg.controls.cpf?.value!,
@@ -99,7 +106,7 @@ export class DialofFormComponent implements OnChanges {
             tipoProfissional: this.patientFg.controls.tipoProfissional?.value!,
             laboratorio: this.laboratorio,
             regiao: this.patientFg.controls.regiao?.value!,
-            senha: undefined
+            senha: senha
         };
 
         if (this.patient.id){
