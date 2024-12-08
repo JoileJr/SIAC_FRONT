@@ -16,6 +16,7 @@ import { ProfissionalSaudeDTO } from '../../core/interfaces/dtos/profissional-sa
 import { PessoaDTO } from '../../core/interfaces/dtos/pessoa.dto';
 import { ExamService } from '../../core/services/exam/exam.service';
 import { ExameDTO } from '../../core/interfaces/dtos/exame.dto';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 interface FilterFg {
     cpf: FormControl<string | null>;
@@ -49,7 +50,9 @@ export class ExamComponent {
         private pacienteService: PatientService,
         private authService: AuthenticationService,
         private professionalService: HealProfessionalService,
-        private examService: ExamService
+        private examService: ExamService,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
     ) {
         this.findTypeExams();
         this.getLab();
@@ -220,6 +223,40 @@ export class ExamComponent {
         );
         this.toastService.success("Sucesso", "Resultado enviado com sucesso.");
 
+    }
+
+    excluirExame(exam: ExameDTO) {
+        if(!exam.id){
+            return
+        }
+        this.examService.delete(exam.id).subscribe({
+            next: (data) => {
+              this.toastService.success("Sucesso", "Exame excluido.");
+            },
+            error: (error: HttpErrorResponse) => {
+                this.tableVisible = false;
+                this.toastService.error("Atenção", "Falha ao desvincular excluir.");
+            }
+          });
+    }
+
+    confirm(event: Event, exam: ExameDTO) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Deseja excluir o exame? está ação é irrevesivel',
+            header: 'Excluir',
+            icon: 'pi pi-exclamation-triangle',
+            acceptIcon:"none",
+            rejectIcon:"none",
+            acceptLabel: "Excluir",
+            rejectLabel: "Cancelar",
+            rejectButtonStyleClass:"p-button-text",
+            accept: () => {
+                this.excluirExame(exam)
+            },
+            reject: () => {
+            }
+        });
     }
 
 }

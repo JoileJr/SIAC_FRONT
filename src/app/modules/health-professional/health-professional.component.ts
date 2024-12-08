@@ -115,7 +115,7 @@ export class HealthProfessionalComponent {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Tem certeza que deseja desvincular este funcionário?',
-            header: 'Confirmation',
+            header: 'Demitir',
             icon: 'pi pi-exclamation-triangle',
             acceptIcon:"none",
             rejectIcon:"none",

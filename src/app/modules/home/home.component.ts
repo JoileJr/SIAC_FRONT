@@ -7,5 +7,12 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
+    examsCount: number = 25;
+
+    constructor() { }
+
+    onCardClick(): void {
+        alert('Você clicou no card de exames!');
+    }
     
 }

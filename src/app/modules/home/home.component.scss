@@ -1,5 +1,35 @@
-.pdf-download {
-    background-color: #42b72a;
-    border-color: #42b72a;
-    margin-right: 15px;
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #Fff;
+    padding: 20px;
+}
+
+.presentation-section {
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    width: 100%;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 20px;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+
 }

@@ -17,6 +17,7 @@ import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
+import { DataViewModule } from 'primeng/dataview';
 
 @NgModule({
     imports: [
@@ -36,6 +37,7 @@ import { HomeComponent } from "./home.component";
         PasswordModule,
         ToastModule,
         CardModule,
+        DataViewModule,
         ConfirmDialogModule
     ],
     exports: [],

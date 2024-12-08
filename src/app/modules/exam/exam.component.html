@@ -120,6 +120,14 @@
                                 icon="pi pi-pencil"
                                 (click)="selectExam(exam)">
                             </button>
+                            <button
+                                type="button"
+                                pButton
+                                pRipple
+                                class="delete"
+                                icon="pi pi-trash"
+                                (click)="confirm($event, exam)">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -127,6 +135,7 @@
         </div>
     </div>
 </div>
+<p-confirmDialog />
 <app-dialog-form
 [patients]="patients"
 [typesExams]="typesExams"
