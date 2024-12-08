@@ -17,7 +17,7 @@
             </div>
 
             <div class="input-group">
-                <p-inputMask mask="999.999.999-99" formControlName="cpf" placeholder="CPF" class="input" />
+                <p-inputMask mask="999.999.999-99" formControlName="cpf" placeholder="CPF" class="input" (onBlur)="findCPF()" />
                 <small *ngIf="patientFg.controls.cpf?.invalid" class="text-red-500 text-xs">
                     Cpf é obrigatório.
                 </small>

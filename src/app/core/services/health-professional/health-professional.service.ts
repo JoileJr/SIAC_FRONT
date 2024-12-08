@@ -35,4 +35,8 @@ export class HealProfessionalService {
         return this.http.get<ProfissionalSaudeDTO>(`${this.apiUrl}${id}`);
     }
 
+    demitir(id: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}${id}`);
+    }
+
 }

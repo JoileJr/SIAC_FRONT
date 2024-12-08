@@ -8,6 +8,7 @@ import { take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProfissionalSaudeRequest } from '../../../core/interfaces/useCases/profissional-saude.request.dto';
 import { LaboratorioDTO } from '../../../core/interfaces/dtos/laboratorio.dto';
+import { PatientService } from '../../../core/services/patient/patient.service';
 
 interface IsignUpFg {
     nome: FormControl<string | null>;
@@ -38,6 +39,7 @@ export class DialofFormComponent implements OnChanges {
 
     constructor(
         private professionalService: HealProfessionalService,
+        private patientService: PatientService,
         private toastService: ToastService
     ) {}
 
@@ -106,7 +108,7 @@ export class DialofFormComponent implements OnChanges {
             tipoProfissional: this.patientFg.controls.tipoProfissional?.value!,
             laboratorio: this.laboratorio,
             regiao: this.patientFg.controls.regiao?.value!,
-            senha: senha
+            senha: senha,
         };
 
         if (this.patient.id){
@@ -146,6 +148,40 @@ export class DialofFormComponent implements OnChanges {
                     this.toastService.error("Atenção", "Falha ao realizar atualização.");
                 }
             });
+    }
+
+    findCPF() {
+        const cpf = this.patientFg.controls.cpf.value;
+        if (this.patientFg.controls.cpf?.invalid) {
+            this.toastService.error("Atenção", "CPF inválido. Verifique o campo de CPF.");
+            return;
+        }
+
+        if (cpf) {
+            this.patientService
+                .findByCPF(cpf)
+                .pipe(
+                    take(1),
+                )
+                .subscribe({
+                    next: (response) => {
+                        this.patientFg.patchValue({
+                            cpf: response.cpf,
+                            email: response.email,
+                            dataNascimento: new Date(response.dataNascimento),
+                            nome: response.nome,
+                            sexo: response.sexo,
+                            telefone: response.telefone,
+                        });
+                        this.patient.id = response.id;
+                    },
+                    error: (error: HttpErrorResponse) => {
+                        this.toastService.error("Atenção", "CEP inválido ou não encontrado.");
+                    }
+                });
+        } else {
+            this.toastService.error("Atenção", "CEP inválido.");
+        }
     }
 
 

@@ -40,4 +40,8 @@ export class PatientService {
         return this.http.get<PessoaDTO>(`${this.apiUrl}${id}`);
     }
 
+    findByCPF(cpf: string): Observable<PessoaDTO> {
+        return this.http.get<PessoaDTO>(`${this.apiUrl}find/${cpf}`);
+    }
+
 }

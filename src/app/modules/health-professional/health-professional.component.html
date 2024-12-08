@@ -155,6 +155,14 @@
                                 icon="pi pi-pencil"
                                 (click)="selectPatient(patient)">
                             </button>
+                            <button
+                                type="button"
+                                pButton
+                                pRipple
+                                class="delete"
+                                icon="pi pi-trash"
+                                (click)="confirm($event, patient)">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -162,6 +170,7 @@
         </div>
     </div>
 </div>
+<p-confirmDialog />
 <app-dialof-form
     [visible]="dialogVisible"
     [patient]="selectedPatient"

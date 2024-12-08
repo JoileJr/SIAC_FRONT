@@ -10,7 +10,7 @@ import { take } from 'rxjs';
 import { LaboratorioDTO } from '../../core/interfaces/dtos/laboratorio.dto';
 import { LabService } from '../../core/services/laboratory/laboratory.service';
 import { PatientService } from '../../core/services/patient/patient.service';
-import { Message } from 'primeng/api';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { FilterHealthProfessionalRequest } from '../../core/interfaces/useCases/filter-health-professional.request';
 
 interface FilterFg {
@@ -44,6 +44,8 @@ export class HealthProfessionalComponent {
         private cd: ChangeDetectorRef,
         private labService: LabService,
         private patientService: PatientService,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
     ) {
         this.patientService.findByID(this.authService.user!.id!).subscribe(
             {
@@ -94,6 +96,42 @@ export class HealthProfessionalComponent {
         this.openDialog(patient);
     }
 
+    demitirFuncionario(patient: ProfissionalSaudeDTO) {
+        if(!patient.id){
+            return
+        }
+        this.professionalService.demitir(patient.id).subscribe({
+            next: (data) => {
+              this.toastService.success("Sucesso", "Funcionário desvinculado com sucesso.");
+            },
+            error: (error: HttpErrorResponse) => {
+                this.tableVisible = false;
+                this.toastService.error("Atenção", "Falha ao desvincular F=funcionário.");
+            }
+          });
+    }
+
+    confirm(event: Event, patient: ProfissionalSaudeDTO) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Tem certeza que deseja desvincular este funcionário?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptIcon:"none",
+            rejectIcon:"none",
+            acceptLabel: "Demitir",
+            rejectLabel: "Cancelar",
+            rejectButtonStyleClass:"p-button-text",
+            accept: () => {
+                this.demitirFuncionario(patient)
+                this.messageService.add({ severity: 'info', summary: 'Confirmar', detail: 'Feito com sucesso!' });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Cancelar', detail: 'Cancelado', life: 3000 });
+            }
+        });
+    }
+
     onSubmit() {
         const filterDto = new FilterHealthProfessionalRequest(
           this.filterFg.value.nome || undefined,
@@ -107,10 +145,10 @@ export class HealthProfessionalComponent {
           this.laboratorio
         );
 
-        this.findPatients(filterDto);
+        this.findProfessionals(filterDto);
     }
 
-    findPatients(dto: FilterHealthProfessionalRequest) {
+    findProfessionals(dto: FilterHealthProfessionalRequest) {
         this.professionalService.findByFilter(dto).subscribe({
           next: (data) => {
             this.patients = data;
