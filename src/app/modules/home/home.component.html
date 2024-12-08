@@ -1,6 +1,64 @@
 <div class="home-container">
+    <!-- Seção de apresentação -->
     <div class="presentation-section">
       <h1 class="title">Bem-vindo ao Sistema Laboratorial</h1>
       <p class="subtitle">Gerencie seus exames e pacientes de forma eficiente e segura.</p>
     </div>
-</div>
+
+    <div class="split-section">
+      <div class="card large-card">
+        <div class="card">
+            <p-dataView #dv [value]="exams">
+                <ng-template pTemplate="list" let-exam>
+                    <div class="grid grid-nogutter">
+                        <div class="col-12" *ngFor="let item of exams; let first = first" class="col-12">
+                            <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                <div class="md:w-10rem relative">
+                                    <img class="block xl:block mx-auto border-round w-full" [src]="'https://blog.oya.care/wp-content/uploads/2023/06/exame-de-rotina-femininos.webp'"/>
+                                </div>
+                                <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                    <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                                        <div class="flex flex-column">
+                                            <span class="text-xl font-semibold text-900">{{item.paciente.nome}} - {{formatToDDMMYYYY(item.dataExame.toString())}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-column md:align-items-end gap-5">
+                                        <span class="text-xl font-semibold text-900">Exame: {{item.tipoExame.nome}}</span>
+                                        <div class="flex flex-row-reverse md:flex-row gap-2">
+                                            <p-button icon="pi pi-file-pdf" [outlined]="true" (click)="downloadRelatorio(item)"/>
+                                            <p-button
+                                                (click)="redHist()"
+                                                class="flex-auto md:flex-initial white-space-nowrap"
+                                                label="Histórico"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+      </div>
+
+      <div class="user-info-section">
+        <div class="card user-card">
+          <div class="card-content">
+            <h2 class="card-title">{{ user?.nome }}</h2>
+            <p class="card-text">Cpf: {{ user?.cpf }}</p>
+            <p class="card-text">Email: {{ user?.email }}</p>
+            <p class="card-text">Telefone: {{ user?.telefone }}</p>
+            <p class="card-text">Sexo: {{ user?.sexo }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card small-card">
+        <div class="card-content">
+          <h2 class="card-title">Exames Realizados</h2>
+          <p class="card-text">{{ exams.length }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
