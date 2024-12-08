@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { PessoaDTO } from "../../interfaces/dtos/pessoa.dto";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { FilterPersonsRequest } from "../../interfaces/useCases/filter-person-request";
 
 @Injectable({
@@ -12,6 +12,13 @@ export class PatientService {
     private apiUrl = `${environment.baseUrl}pac/`;
 
     constructor(private http: HttpClient) { }
+
+    private selectedItemSource = new BehaviorSubject<PessoaDTO>(new PessoaDTO());
+    selectedItem$ = this.selectedItemSource.asObservable();
+
+    selectItem(item: any) {
+        this.selectedItemSource.next(item);
+    }
 
     getAllPatients(): Observable<PessoaDTO[]> {
         return this.http.get<PessoaDTO[]>(`${this.apiUrl}`);

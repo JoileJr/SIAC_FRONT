@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LayoutComponent } from "./layout.component";
-import { HomeComponent } from "../home/home.component";
 import { authGuard } from "../../core/guards/auth.guard";
 import { loginGuard } from "../../core/guards/login.guard";
 import { SingupComponent } from "../singup/singup.component";
@@ -30,7 +29,10 @@ const routes: Routes = [
         children: [
             {
                 path: "home",
-                component: HomeComponent
+                loadChildren: () =>
+                    import("../home/home.module").then(
+                        (m) => m.HomeModule,
+                    ),
             },
             {
                 path: "laboratory",
@@ -58,6 +60,13 @@ const routes: Routes = [
                 loadChildren: () =>
                     import("../exam/exam.module").then(
                         (m) => m.ExamModule,
+                    ),
+            },
+            {
+                path: "history-exam",
+                loadChildren: () =>
+                    import("../history-exams/history-exams.module").then(
+                        (m) => m.HistoryExamsModule,
                     ),
             },
             {

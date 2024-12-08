@@ -1,14 +1,13 @@
 <div class="content flex flex-column align-items-center">
-    <div class="card flex flex-column p-5">
+    <div *ngIf="!(selectedItem && selectedItem.id)" >
+        <div class="card message-container flex flex-column align-items-center">
+            <h1>Você não selecionou um usuario para ver o histórico de exames</h1>
+        </div>
+    </div>
+    <div *ngIf="selectedItem && selectedItem.id" class="card flex flex-column p-5">
         <p-card class="card-filter">
             <div class="flex flex-row align-items-center justify-content-between">
-                <h3>Pacientes</h3>
-                <p-button
-                    label="Adicionar"
-                    icon="pi pi-plus"
-                    iconPos="right"
-                    (click)="openDialog()"
-                    />
+                <h3>{{selectedItem.nome}} Exames</h3>
             </div>
             <div>
                 <form
@@ -16,50 +15,38 @@
                     [formGroup]="filterFg"
                 >
                     <div class="flex flex-column">
-                        <input
-                        type="text"
-                        pInputText
-                        class="input"
-                        formControlName="nome"
-                        placeholder="Nome"
-                        required />
+                        <div class="input-group">
+                            <p-dropdown [options]="typesExams" formControlName="tipoExame" optionLabel="nome" optionValue="id"
+                                class="input" [style]="{width: '300px', color: 'black'}" placeholder="Nível"></p-dropdown>
+                        </div>
                     </div>
 
                     <div class="flex flex-column">
-                        <p-inputMask
-                            mask="999.999.999-99"
-                            formControlName="cpf"
-                            placeholder="CPF"
+                        <p-calendar
+                            formControlName="dataInicio"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Data Inicial"
+                            [showIcon]="true"
+                            [showOnFocus]="false"
+                            inputId="icondisplay"
+                            [iconDisplay]="'input'"
                             class="input"
+                            (keydown)="blockTyping($event)"
                         />
                     </div>
 
                     <div class="flex flex-column">
                         <p-calendar
+                            formControlName="dataFinal"
                             dateFormat="dd/mm/yy"
-                            formControlName="dataNascimentoInicio"
-                            placeholder="Data Inicial de Nascimento"
+                            placeholder="Data Final"
                             [showIcon]="true"
                             [showOnFocus]="false"
                             inputId="icondisplay"
                             [iconDisplay]="'input'"
                             class="input"
                             (keydown)="blockTyping($event)"
-                            />
-                    </div>
-
-                    <div class="flex flex-column">
-                        <p-calendar
-                            dateFormat="dd/mm/yy"
-                            formControlName="dataNascimentoFinal"
-                            placeholder="Data Final de Nascimento"
-                            [showIcon]="true"
-                            [showOnFocus]="false"
-                            inputId="icondisplay"
-                            [iconDisplay]="'input'"
-                            class="input"
-                            (keydown)="blockTyping($event)"
-                            />
+                        />
                     </div>
                 </form>
             </div>
@@ -75,40 +62,41 @@
         <div class="table mt-3">
             <p-toast />
             <p-table
-            [value]="patients"
+            [value]="exams"
             [tableStyle]="{ 'min-width': '50rem' }"
             *ngIf="tableVisible"
             >
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Nome</th>
-                        <th>Cpf</th>
-                        <th>Telefone</th>
-                        <th>Email</th>
+                        <th>Nome Paciente</th>
+                        <th>Cpf Paciente</th>
+                        <th>Tipo do Exame</th>
+                        <th>Data do Exame</th>
                         <th>Ações</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-patient>
+                <ng-template pTemplate="body" let-exam>
                     <tr>
-                        <td>{{ patient.nome }}</td>
-                        <td>{{ patient.cpf }}</td>
-                        <td>{{ patient.telefone }}</td>
-                        <td>{{ patient.email }}</td>
+                        <td>{{ exam.paciente.nome }}</td>
+                        <td>{{ exam.paciente.cpf }}</td>
+                        <td>{{ exam.tipoExame.nome }}</td>
+                        <td>{{ formatToDDMMYYYY(exam.dataExame) }}</td>
                         <td>
                             <button
                                 type="button"
                                 pButton
                                 pRipple
-                                class="eye"
-                                icon="pi pi-eye"
-                                (click)="onSelect(patient)">
+                                icon="pi pi-send"
+                                class="send"
+                                (click)="enviarEmail(exam)">
                             </button>
                             <button
                                 type="button"
                                 pButton
                                 pRipple
-                                icon="pi pi-pencil"
-                                (click)="selectPatient(patient)">
+                                icon="pi pi-file-pdf"
+                                class="pdf-download"
+                                (click)="downloadRelatorio(exam)">
                             </button>
                         </td>
                     </tr>
@@ -117,8 +105,3 @@
         </div>
     </div>
 </div>
-<app-dialof-form
-    [visible]="dialogVisible"
-    [patient]="selectedPatient"
-    (closeDialog)="closeDialog()">
-</app-dialof-form>

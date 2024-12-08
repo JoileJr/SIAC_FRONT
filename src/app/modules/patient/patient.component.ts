@@ -6,6 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../../core/services/toastr/toast.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FilterPersonsRequest } from '../../core/interfaces/useCases/filter-person-request';
+import { Router } from '@angular/router';
+import { RoutesConstants } from '../../core/constants/routes.constants';
 
 interface FilterFg {
     nome: FormControl<string | null>;
@@ -25,10 +27,12 @@ export class PatientComponent implements OnInit {
     selectedPatient: PessoaDTO = new PessoaDTO();
     dialogVisible: boolean = false;
     tableVisible: boolean = false;
+    routesConstants = RoutesConstants;
 
     constructor(
       private patientService: PatientService,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private router: Router
     ) {}
 
     filterFg: FormGroup<FilterFg> = new FormGroup({
@@ -89,6 +93,11 @@ export class PatientComponent implements OnInit {
         );
 
         this.findPatients(filterDto);
+    }
+
+    onSelect(item: PessoaDTO) {
+        this.patientService.selectItem(item);
+        this.router.navigate([this.routesConstants.EXAM_HIST]);
     }
 
 }

@@ -13,16 +13,20 @@
     width: 80vw;
 }
 
-.eye {
-    background-color: #36a420;
-    border-color: #36a420;
-    margin-right: 15px;
-}
-
 .delete {
     background-color: red;
     border-color: red;
     margin-left: 15px;
+}
+
+.pdf-download {
+    background-color: #42b72a;
+    border-color: #42b72a;
+    margin-right: 15px;
+}
+
+.send {
+    margin-right: 15px;
 }
 
 .filter {
@@ -51,6 +55,7 @@
 
 .input{
     width: 300px;
+    background-color: white
 }
 
 p-card {
@@ -84,4 +89,3 @@ p-inputMask {
         }
     }
 }
-
