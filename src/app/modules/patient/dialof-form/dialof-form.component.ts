@@ -87,7 +87,6 @@ export class DialofFormComponent implements OnChanges {
 
         if (this.patient.id){
             pessoaDTO.id = this.patient.id;
-            pessoaDTO.senha = this.patient.senha;
             this.update(pessoaDTO, this.patient.id);
         } else {
             pessoaDTO.perfis = []

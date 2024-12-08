@@ -13,7 +13,7 @@ interface IsignUpFg {
     nome: FormControl<string | null>;
     cpf: FormControl<string | null>;
     telefone: FormControl<string | null>;
-    senha: FormControl<string | undefined>;
+    senha: FormControl<string | null>;
     sexo: FormControl<string | null>;
     regiao: FormControl<string | null>;
     email: FormControl<string | null>;
@@ -52,9 +52,9 @@ export class DialofFormComponent implements OnChanges {
             nome: new FormControl<string | null>(patient.nome, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÿ ]+$')]),
             cpf: new FormControl<string | null>(patient.cpf, [Validators.required]),
             telefone: new FormControl<string | null>(patient.telefone, [Validators.required]),
-            senha: new FormControl<string | undefined>(patient.senha),
+            senha: new FormControl<string | null>(null),
             sexo: new FormControl<string | null>(patient.sexo, [Validators.required]),
-            regiao: new FormControl<string | null>(patient.regiao, [Validators.required]),
+            regiao: new FormControl<string | null>(patient.regiao),
             email: new FormControl<string | null>(patient.email, [Validators.required, Validators.email]),
             registroProfissional: new FormControl<string | null>(patient.registroProfissional, [Validators.required, Validators.pattern('^[0-9]{4,6}-[A-Z]*$')]),
             tipoProfissional: new FormControl<string | null>(patient.tipoProfissional, [Validators.required]),

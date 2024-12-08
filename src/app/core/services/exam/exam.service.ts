@@ -21,6 +21,11 @@ export class ExamService {
         return this.http.post<ExameDTO[]>(`${this.apiUrl}list`, exame);
     }
 
+    enviarResultadoPorEmail(code: number): Observable<any> {
+        const url = `${this.apiUrl}enviar-resultado/${code}`;
+        return this.http.get(url);
+    }
+
     exportarRelatorio(code: number): Observable<Blob> {
         const url = `${this.apiUrl}relatorio/pdf/${code}`;
         return this.http.get(url, {

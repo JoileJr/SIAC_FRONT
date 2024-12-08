@@ -197,17 +197,29 @@ export class ExamComponent {
     }
 
     downloadRelatorio(exame: ExameDTO): void {
+        if (!exame.id) {
+            return;
+        }
+        this.examService.exportarRelatorio(exame.id).subscribe((pdfBlob) => {
+            const blobUrl = window.URL.createObjectURL(pdfBlob);
+            window.open(blobUrl);
+            window.URL.revokeObjectURL(blobUrl);
+        });
+    }
+
+
+    enviarEmail(exame: ExameDTO): void {
         if(!exame.id){
             return
         }
-        this.examService.exportarRelatorio(exame.id).subscribe((pdfBlob) => {
-          const blobUrl = window.URL.createObjectURL(pdfBlob);
-          const link = document.createElement('a');
-          link.href = blobUrl;
-          link.download = `Exame ${exame.paciente.nome}.pdf`;
-          link.click();
-          window.URL.revokeObjectURL(blobUrl);
-        });
-      }
+        this.examService.enviarResultadoPorEmail(exame.id).subscribe(
+            {
+                next: (data) => {},
+                error: (error: HttpErrorResponse) => {}
+            }
+        );
+        this.toastService.success("Sucesso", "Resultado enviado com sucesso.");
+
+    }
 
 }

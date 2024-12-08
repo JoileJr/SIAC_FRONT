@@ -6,6 +6,13 @@
                     class="input" [style]="{width: '14vw', color: 'black'}" placeholder="Tipo Exame"></p-dropdown>
             </div>
             <div class="input-group">
+                <p-dropdown [options]="profissionaisSaude" formControlName="profissionalSaude" optionLabel="nome"
+                    class="input" [style]="{width: '14vw', color: 'black'}" placeholder="Profissional Responsável"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="row flex flex-row">
+            <div class="input-group">
                 <p-calendar
                     formControlName="dataExame"
                     dateFormat="dd/mm/yy"
@@ -18,13 +25,6 @@
                     [style]="{width: '14vw'}"
                     (keydown)="blockTyping($event)"
                     />
-            </div>
-        </div>
-
-        <div class="row flex flex-row">
-            <div class="input-group">
-                <p-dropdown [options]="profissionaisSaude" formControlName="profissionalSaude" optionLabel="nome"
-                    class="input" [style]="{width: '14vw', color: 'black'}" placeholder="Profissional Responsável"></p-dropdown>
             </div>
             <div class="input-group">
                 <p-dropdown [options]="patients" formControlName="paciente" optionLabel="nome"

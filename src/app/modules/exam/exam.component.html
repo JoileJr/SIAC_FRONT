@@ -101,7 +101,15 @@
                                 type="button"
                                 pButton
                                 pRipple
-                                icon="pi pi-file"
+                                icon="pi pi-send"
+                                class="send"
+                                (click)="enviarEmail(exam)">
+                            </button>
+                            <button
+                                type="button"
+                                pButton
+                                pRipple
+                                icon="pi pi-file-pdf"
                                 class="pdf-download"
                                 (click)="downloadRelatorio(exam)">
                             </button>

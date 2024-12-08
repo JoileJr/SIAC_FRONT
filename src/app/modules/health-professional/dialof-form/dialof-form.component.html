@@ -73,6 +73,7 @@
             </div>
 
             <div class="input-group">
+                <p>Preencha apenas se a profissão é regional</p>
                 <p-inputMask mask="aa" formControlName="regiao" placeholder="Região" class="input" required
                     [style]="{width: '10vw'}"></p-inputMask>
                 <small *ngIf="patientFg.controls.regiao?.invalid" class="text-red-500 text-xs">
@@ -82,6 +83,7 @@
         </div>
 
         <div class="input-group">
+            <p>Preencha apenas se deseja alterar a senha</p>
             <p-password
                 formControlName="senha"
                 [toggleMask]="true"
