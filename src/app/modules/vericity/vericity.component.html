@@ -1,0 +1,10 @@
+<div class="container">
+    <div *ngIf="exame" class="signup-form">
+        <h1 class="logo">Siac</h1>
+        <h3 class="logo">Seu exame é veridico</h3>
+        <div class="flex flex-row" >
+            <p-button icon="pi pi-file-pdf" [outlined]="true" (click)="downloadRelatorio()"/>
+        </div>
+        <button type="submit" class="signup-btn" (click)="redirect()">Fazer Login</button>
+    </div>
+</div>

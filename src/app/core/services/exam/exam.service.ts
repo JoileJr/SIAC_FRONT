@@ -38,4 +38,8 @@ export class ExamService {
         return this.http.delete<any>(`${this.apiUrl}${id}`);
     }
 
+    findByID(id: string): Observable<ExameDTO> {
+        return this.http.get<ExameDTO>(`${this.apiUrl}res/${id}`);
+    }
+
 }

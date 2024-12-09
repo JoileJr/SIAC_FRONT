@@ -4,6 +4,7 @@ import { LayoutComponent } from "./layout.component";
 import { authGuard } from "../../core/guards/auth.guard";
 import { loginGuard } from "../../core/guards/login.guard";
 import { SingupComponent } from "../singup/singup.component";
+import { VericityComponent } from "../vericity/vericity.component";
 
 const routes: Routes = [
     {
@@ -20,6 +21,13 @@ const routes: Routes = [
         loadChildren: () =>
             import("../singup/singup.module").then(
                 (m) => m.SingUpModule,
+            ),
+    },
+    {
+        path:  "truthfulness",
+        loadChildren: () =>
+            import("../vericity/vericity.module").then(
+                (m) => m.VericityModule,
             ),
     },
     {
