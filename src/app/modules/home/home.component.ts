@@ -16,9 +16,7 @@ import { HttpErrorResponse } from "@angular/common/http";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-    examsCount: number = 25;
-    userName: string = 'João Silva';
-    userEmail: string = 'joao.silva@email.com';
+    totalExams: number = 0;
     routesConstants = RoutesConstants;
     user = this.authenticationService.user;
     exams: ExameDTO[] = [];
@@ -53,6 +51,7 @@ export class HomeComponent {
         this.examService.findByFilter(filter).subscribe({
           next: (data) => {
             this.toastService.success("Sucesso", "Busca de exames realizada com sucesso.");
+            this.totalExams = data.length
             this.exams = data.length > 5 ? data.slice(0, 5) : data;
             this.cd.markForCheck();
           },
