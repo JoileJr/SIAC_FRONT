@@ -27,6 +27,14 @@ export class TopbarComponent implements OnInit {
             this.menusAdmin();
         } else if (this.user?.perfis[0].id == 2) {
             this.menusAdmin();
+        } else if (this.user?.perfis[0].id == 3) {
+            this.menusProfSaude();
+        } else if (this.user?.perfis[0].id == 4) {
+            this.menusProfSaude();
+        } else if (this.user?.perfis[0].id == 6) {
+            this.menusProfSaude();
+        } else if (this.user?.perfis[0].id == 7) {
+            this.menusProfSaude();
         } else {
             this.menusPac();
         }
@@ -60,6 +68,25 @@ export class TopbarComponent implements OnInit {
                 icon: 'pi pi-users',
                 command: () => {
                     this.redirectRoute(this.routesConstants.HEALTH_PROFESSIONAL);
+                }
+            },
+            {
+                label: 'Exames',
+                icon: 'pi pi-users',
+                command: () => {
+                    this.redirectRoute(this.routesConstants.EXAM);
+                }
+            }
+        ];
+    }
+
+    menusProfSaude() {
+        this.items = [
+            {
+                label: 'Inicio',
+                icon: 'pi pi-home',
+                command: () => {
+                    this.redirectRoute(this.routesConstants.HOME);
                 }
             },
             {
