@@ -24,7 +24,7 @@ export class TopbarComponent implements OnInit {
 
     ngOnInit() {
         if (this.user?.perfis[0].id == 1) {
-            this.menusAdmin();
+            this.menusAdminF();
         } else if (this.user?.perfis[0].id == 2) {
             this.menusAdmin();
         } else if (this.user?.perfis[0].id == 3) {
@@ -108,6 +108,32 @@ export class TopbarComponent implements OnInit {
                     this.redirectRoute(this.routesConstants.HOME);
                 }
             }
+        ];
+    }
+
+    menusAdminF() {
+        this.items = [
+            {
+                label: 'Inicio',
+                icon: 'pi pi-home',
+                command: () => {
+                    this.redirectRoute(this.routesConstants.HOME);
+                }
+            },
+            {
+                label: 'Pacientes',
+                icon: 'pi pi-users',
+                command: () => {
+                    this.redirectRoute(this.routesConstants.PATIENT);
+                }
+            },
+            {
+                label: 'Funcionários',
+                icon: 'pi pi-users',
+                command: () => {
+                    this.redirectRoute(this.routesConstants.HEALTH_PROFESSIONAL);
+                }
+            },
         ];
     }
 
