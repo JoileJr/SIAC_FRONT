@@ -16,9 +16,9 @@ interface IsignUpFg {
     telefone: FormControl<string | null>;
     senha: FormControl<string | null>;
     sexo: FormControl<string | null>;
-    regiao: FormControl<string | null>;
+    regiao: FormControl<string | undefined>;
     email: FormControl<string | null>;
-    registroProfissional: FormControl<string | null>;
+    registroProfissional: FormControl<string | undefined>;
     tipoProfissional: FormControl<string | null>;
     dataNascimento: FormControl<Date | null>;
     perfis: FormControl<string | null>;
@@ -36,6 +36,7 @@ export class DialofFormComponent implements OnChanges {
     @Input() isEditing: boolean = false;
     @Output() closeDialog = new EventEmitter<void>();
     patientFg!: FormGroup<IsignUpFg>;
+    showProfessionalFields: boolean = true;
 
     constructor(
         private professionalService: HealProfessionalService,
@@ -46,6 +47,7 @@ export class DialofFormComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes['patient'] && changes['patient'].currentValue) {
             this.createForm(changes['patient'].currentValue);
+            this.onProfissionalTypeChange();
         }
     }
 
@@ -56,9 +58,9 @@ export class DialofFormComponent implements OnChanges {
             telefone: new FormControl<string | null>(patient.telefone, [Validators.required]),
             senha: new FormControl<string | null>(null),
             sexo: new FormControl<string | null>(patient.sexo, [Validators.required]),
-            regiao: new FormControl<string | null>(patient.regiao),
+            regiao: new FormControl<string | undefined>(patient.regiao),
             email: new FormControl<string | null>(patient.email, [Validators.required, Validators.email]),
-            registroProfissional: new FormControl<string | null>(patient.registroProfissional, [Validators.required, Validators.pattern('^[0-9]{4,6}-[A-Z]*$')]),
+            registroProfissional: new FormControl<string | undefined>(patient.registroProfissional),
             tipoProfissional: new FormControl<string | null>(patient.tipoProfissional, [Validators.required]),
             dataNascimento: new FormControl<Date | null>(
                 patient.dataNascimento ? new Date(patient.dataNascimento) : null,
@@ -66,6 +68,11 @@ export class DialofFormComponent implements OnChanges {
             ),
             perfis: new FormControl<string | null>(patient.perfis)
         });
+    }
+
+    onProfissionalTypeChange(): void {
+        const tipoProfissional = this.patientFg.controls.tipoProfissional?.value;
+        this.showProfessionalFields = tipoProfissional !== TipoUsuario.ADMINISTRATIVO;
     }
 
     sexOptions: any[] = [
@@ -78,7 +85,8 @@ export class DialofFormComponent implements OnChanges {
         {  value: TipoUsuario.BIOMEDICO },
         {  value: TipoUsuario.ENFERMEIRO },
         {  value: TipoUsuario.TECNICO_ENFERMAGEM },
-        {  value: TipoUsuario.MEDICO }
+        {  value: TipoUsuario.MEDICO },
+        {  value: TipoUsuario.ADMINISTRATIVO }
     ];
 
     hideDialog() {
@@ -176,12 +184,16 @@ export class DialofFormComponent implements OnChanges {
                         this.patient.id = response.id;
                     },
                     error: (error: HttpErrorResponse) => {
-                        this.toastService.error("Atenção", "CEP inválido ou não encontrado.");
+                        this.toastService.error("Atenção", "Cpf inválido ou não encontrado.");
                     }
                 });
         } else {
             this.toastService.error("Atenção", "CEP inválido.");
         }
+    }
+
+    blockTyping(event: KeyboardEvent) {
+        event.preventDefault();
     }
 
 

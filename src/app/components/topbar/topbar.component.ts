@@ -64,7 +64,7 @@ export class TopbarComponent implements OnInit {
                 }
             },
             {
-                label: 'Profissionais de Saúde',
+                label: 'Funcionários',
                 icon: 'pi pi-users',
                 command: () => {
                     this.redirectRoute(this.routesConstants.HEALTH_PROFESSIONAL);

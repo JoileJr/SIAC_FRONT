@@ -130,4 +130,8 @@ export class DialofFormComponent implements OnChanges {
         this.closeDialog.emit();
     }
 
+    blockTyping(event: KeyboardEvent) {
+        event.preventDefault();
+    }
+
 }

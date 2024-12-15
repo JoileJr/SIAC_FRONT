@@ -9,7 +9,7 @@
 
         <div class="row flex flex-row">
             <div class="input-group">
-                <p-calendar formControlName="dataNascimento" placeholder="Data Nascimento" [showIcon]="true" [showOnFocus]="false"
+                <p-calendar formControlName="dataNascimento" placeholder="Data Nascimento" [showIcon]="true" [showOnFocus]="false" (keydown)="blockTyping($event)"
                     inputId="icondisplay" [iconDisplay]="'input'" [dateFormat]="'dd/mm/yy'" class="input" dateFormat="dd/mm/yy"></p-calendar>
                 <small *ngIf="patientFg.controls.dataNascimento?.invalid" class="text-red-500 text-xs">
                     Data de Nascimento é obrigatório.
@@ -17,7 +17,7 @@
             </div>
 
             <div class="input-group">
-                <p-inputMask mask="999.999.999-99" formControlName="cpf" placeholder="CPF" class="input" (onBlur)="findCPF()" />
+                <p-inputMask mask="999.999.999-99" formControlName="cpf" placeholder="CPF" class="input" />
                 <small *ngIf="patientFg.controls.cpf?.invalid" class="text-red-500 text-xs">
                     Cpf é obrigatório.
                 </small>
@@ -39,16 +39,16 @@
         </div>
 
         <div class="input-group">
-                <input type="text" pInputText class="input" formControlName="email" placeholder="Email" />
-                <small *ngIf="patientFg.controls.email?.invalid" class="text-red-500 text-xs">
-                    Email é obrigatório.
-                </small>
+            <input type="text" pInputText class="input" formControlName="email" placeholder="Email" />
+            <small *ngIf="patientFg.controls.email?.invalid" class="text-red-500 text-xs">
+                Email é obrigatório.
+            </small>
         </div>
 
         <div class="row flex flex-row">
-            <div class="input-group">
+            <div class="input-group bc-white"  [style]="{width: '17vw', color: 'black', background: '#ffffff'}">
                 <p-dropdown [options]="perfilOptions" formControlName="tipoProfissional" optionLabel="value" optionValue="value"
-                    class="input" [style]="{width: '15vw', color: 'black'}" placeholder="Tipo Profissional"></p-dropdown>
+                    class="input" [style]="{width: '17vw', color: 'black', background: '#ffffff'}" placeholder="Tipo Profissional" (onChange)="onProfissionalTypeChange()"></p-dropdown>
                 <small *ngIf="patientFg.controls.tipoProfissional?.invalid" class="text-red-500 text-xs">
                     Tipo Profissional é obrigatório.
                 </small>
@@ -63,23 +63,16 @@
         </div>
 
 
-        <div class="row flex flex-row">
+        <div class="row flex flex-row" *ngIf="showProfessionalFields">
             <div class="input-group">
                 <p>Registro Profissional</p>
-                <p-inputMask mask="999999-aa" formControlName="registroProfissional" placeholder="Registro Profissional"
-                    class="input" required></p-inputMask>
-                <small *ngIf="patientFg.controls.registroProfissional?.invalid" class="text-red-500 text-xs">
-                    Registro Profissional é obrigatório.
-                </small>
+                <input type="text" pInputText class="input" formControlName="registroProfissional" placeholder="Registro Profissional" class="input"/>
             </div>
 
-            <div class="input-group">
+            <div class="input-group" [style]="{width: '17vw'}">
                 <p>Preencha apenas se a profissão é regional</p>
-                <p-inputMask mask="aa" formControlName="regiao" placeholder="Região" class="input" required
+                <p-inputMask mask="aa" formControlName="regiao" placeholder="Região" class="input"
                     [style]="{width: '10vw'}"></p-inputMask>
-                <small *ngIf="patientFg.controls.regiao?.invalid" class="text-red-500 text-xs">
-                    Região é obrigatório.
-                </small>
             </div>
         </div>
 

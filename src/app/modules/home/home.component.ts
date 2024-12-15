@@ -35,7 +35,7 @@ export class HomeComponent {
             dataInicio: undefined,
             dataFim: undefined
         }
-        this.findExamsByFilter(filter)
+        this.findExamsByFilter(filter);
     }
 
     redHist(): void {

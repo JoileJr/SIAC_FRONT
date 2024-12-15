@@ -24,6 +24,7 @@
                 [iconDisplay]="'input'"
                 [dateFormat]="'dd/mm/yy'"
                 class="input"
+                (keydown)="blockTyping($event)"
             ></p-calendar>
             <small *ngIf="patientFg.controls.dataNascimento?.invalid" class="text-red-500 text-xs">
                 Data de Nascimento é obrigatório.

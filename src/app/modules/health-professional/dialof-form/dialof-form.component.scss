@@ -5,7 +5,7 @@
 }
 
 form {
-    width: 31vw;
+    width: 35vw;
 }
 
 .input-group {
@@ -41,7 +41,7 @@ form {
 p-password {
     &::ng-deep {
         input {
-            width: 15vw;
+            width: 17vw;
         }
     }
 }
@@ -49,7 +49,7 @@ p-password {
 p-calendar {
     &::ng-deep {
         input {
-            width: 15vw;
+            width: 17vw;
         }
     }
 }
@@ -57,7 +57,7 @@ p-calendar {
 p-inputMask {
     &::ng-deep {
         input {
-            width: 15vw;
+            width: 17vw;
         }
     }
 }
@@ -74,7 +74,7 @@ p-radioButton {
 p-selectButton {
     &::ng-deep {
         input {
-            width: 15vw;
+            width: 17vw;
         }
     }
 }
