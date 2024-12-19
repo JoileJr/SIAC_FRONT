@@ -17,6 +17,7 @@ import { PessoaDTO } from '../../core/interfaces/dtos/pessoa.dto';
 import { ExamService } from '../../core/services/exam/exam.service';
 import { ExameDTO } from '../../core/interfaces/dtos/exame.dto';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { TipoUsuario } from '../../core/interfaces/enums/TipoUsuario';
 
 interface FilterFg {
     cpf: FormControl<string | null>;
@@ -59,6 +60,7 @@ export class ExamComponent {
 
         const filterProfDto = new FilterHealthProfessionalRequest();
         filterProfDto.laboratorio = this.laboratorio;
+        filterProfDto.tipoProfissional = TipoUsuario.BIOMEDICO;
         this.findProf(filterProfDto);
         this.findPatients();
     }
