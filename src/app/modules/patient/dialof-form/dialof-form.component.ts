@@ -1,10 +1,10 @@
-import { OnChanges, SimpleChanges } from '@angular/core';
+import { OnChanges, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PessoaDTO } from '../../../core/interfaces/dtos/pessoa.dto';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from '../../../core/services/toastr/toast.service';
 import { PatientService } from '../../../core/services/patient/patient.service';
-import { take } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 interface IsignUpFg {
@@ -25,6 +25,7 @@ interface IsignUpFg {
   styleUrl: './dialof-form.component.scss'
 })
 export class DialofFormComponent implements OnChanges {
+    loading: WritableSignal<boolean> = signal(false);
     @Input() visible: boolean = false;
     @Input() patient!: PessoaDTO;
     @Input() isEditing: boolean = false;
@@ -96,10 +97,12 @@ export class DialofFormComponent implements OnChanges {
     }
 
     create(dto: PessoaDTO): void {
+        this.loading.set(true);
         this.patientService
             .createPatient(dto)
             .pipe(
-                take(1)
+                take(1),
+                finalize(() => this.loading.set(false))
             ).subscribe({
                 next: (response) => {
                     this.toastService.success("Sucesso", "Cadastro realizado com sucesso.");
@@ -111,10 +114,12 @@ export class DialofFormComponent implements OnChanges {
     }
 
     update(dto: PessoaDTO, id: number): void {
+        this.loading.set(true);
         this.patientService
             .updatePatient(dto, id)
             .pipe(
-                take(1)
+                take(1),
+                finalize(() => this.loading.set(false))
             ).subscribe({
                 next: (response) => {
                     this.toastService.success("Sucesso", "Atualização realizada com sucesso.");

@@ -63,6 +63,8 @@
           </div>
         </div>
 
-        <button type="submit" class="signup-btn" [disabled]="resultadoForm.invalid">Enviar Resultados</button>
+        <button type="submit" class="signup-btn"
+        [disabled]="resultadoForm.invalid || loading()"
+        >Enviar Resultados</button>
     </form>
 </p-dialog>

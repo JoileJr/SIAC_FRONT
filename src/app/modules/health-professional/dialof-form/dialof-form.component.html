@@ -66,7 +66,12 @@
         <div class="row flex flex-row" *ngIf="showProfessionalFields">
             <div class="input-group">
                 <p>Registro Profissional</p>
-                <input type="text" pInputText class="input" formControlName="registroProfissional" placeholder="Registro Profissional" class="input"/>
+                <input
+                    type="text"
+                    pInputText class="input"
+                    formControlName="registroProfissional"
+                    placeholder="Registro Profissional"
+                    class="input"/>
             </div>
 
             <div class="input-group" [style]="{width: '17vw'}">
@@ -102,6 +107,10 @@
             </small>
         </div>
 
-        <button type="submit" class="signup-btn" [disabled]="patientFg.invalid">Salvar</button>
+        <button
+        type="submit"
+        class="signup-btn"
+        [disabled]="patientFg.invalid || loading()"
+        >Salvar</button>
     </form>
 </p-dialog>

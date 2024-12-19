@@ -66,6 +66,8 @@ export class SingupComponent {
             this.toastService.error("Atenção", "Dados Inválidos.");
         }
 
+        this.loading.set(true);
+
         const signUpData: SignUpRequest = {
             nome: this.signUpFg.controls.nome?.value!,
             cpf: this.signUpFg.controls.cpf?.value!,

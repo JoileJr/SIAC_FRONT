@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { ProfissionalSaudeDTO } from '../../../core/interfaces/dtos/profissional-saude.dto';
 import { HealProfessionalService } from '../../../core/services/health-professional/health-professional.service';
 import { ToastService } from '../../../core/services/toastr/toast.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TipoUsuario } from '../../../core/interfaces/enums/TipoUsuario';
-import { take } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProfissionalSaudeRequest } from '../../../core/interfaces/useCases/profissional-saude.request.dto';
 import { LaboratorioDTO } from '../../../core/interfaces/dtos/laboratorio.dto';
@@ -30,6 +30,7 @@ interface IsignUpFg {
   styleUrl: './dialof-form.component.scss'
 })
 export class DialofFormComponent implements OnChanges {
+    loading: WritableSignal<boolean> = signal(false);
     @Input() visible: boolean = false;
     @Input() patient!: ProfissionalSaudeDTO;
     @Input() laboratorio!: LaboratorioDTO;
@@ -129,10 +130,12 @@ export class DialofFormComponent implements OnChanges {
     }
 
     create(dto: ProfissionalSaudeRequest): void {
+        this.loading.set(true);
         this.professionalService
             .create(dto)
             .pipe(
-                take(1)
+                take(1),
+                finalize(() => this.loading.set(false))
             ).subscribe({
                 next: (response) => {
                     this.toastService.success("Sucesso", "Cadastro realizado com sucesso.");
@@ -144,10 +147,12 @@ export class DialofFormComponent implements OnChanges {
     }
 
     update(dto: ProfissionalSaudeRequest, id: number): void {
+        this.loading.set(true);
         this.professionalService
             .update(dto, id)
             .pipe(
-                take(1)
+                take(1),
+                finalize(() => this.loading.set(false))
             ).subscribe({
                 next: (response) => {
                     this.toastService.success("Sucesso", "Atualização realizada com sucesso.");

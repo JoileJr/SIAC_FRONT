@@ -1,5 +1,5 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges, ChangeDetectorRef, WritableSignal, signal } from '@angular/core';
 import { ParametroDTO } from '../../../core/interfaces/dtos/parametro.dto';
 import { PessoaDTO } from '../../../core/interfaces/dtos/pessoa.dto';
 import { TipoExameDTO } from '../../../core/interfaces/dtos/tipo-exame.dto';
@@ -11,6 +11,7 @@ import { ToastService } from '../../../core/services/toastr/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ExameDTO } from '../../../core/interfaces/dtos/exame.dto';
 import { TypeExamService } from '../../../core/services/typeExam/type-exam.service';
+import { finalize } from 'rxjs';
 
 export interface IResultadoForm {
     parametroId: FormControl<number | null>;
@@ -27,6 +28,7 @@ export interface IResultadoForm {
   styleUrl: './dialog-form.component.scss'
 })
 export class DialogFormComponent implements OnInit, OnChanges {
+    loading: WritableSignal<boolean> = signal(false);
     @Input() visible: boolean = false;
     @Input() typesExams!: TipoExameDTO[];
     @Input() profissionaisSaude!: ProfissionalSaudeDTO[];
@@ -124,7 +126,11 @@ export class DialogFormComponent implements OnInit, OnChanges {
     }
 
     criarExame(dto: ExameDTO) {
-        this.exameService.create(dto).subscribe({
+        this.loading.set(true);
+
+        this.exameService.create(dto).pipe(
+            finalize(() => this.loading.set(false))
+        ).subscribe({
             next: (data) => {
                 this.toastService.success("Sucesso", "Exame criado com sucesso.");
                 this.hideDialog();
@@ -193,7 +199,7 @@ export class DialogFormComponent implements OnInit, OnChanges {
                 resultadosArray.push(this.fb.group({
                     id: [obj.id],
                     resultado: [obj.resultado, [Validators.required]],
-                    observacao: [obj.observacao, Validators.required],
+                    observacao: [obj.observacao],
                     nivelDeAlerta: [obj.nivelDeAlerta, Validators.required],
                     parametro: [obj.parametro]
                 }));
@@ -203,7 +209,7 @@ export class DialogFormComponent implements OnInit, OnChanges {
                 resultadosArray.push(this.fb.group({
                     id: [null],
                     resultado: [null, [Validators.required]],
-                    observacao: [null, Validators.required],
+                    observacao: [null],
                     nivelDeAlerta: [null, Validators.required],
                     parametro: [parametro]
                 }));

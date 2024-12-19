@@ -159,6 +159,8 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="signup-btn" [disabled]="labFg.invalid">Salvar</button>
+        <button type="submit" class="signup-btn"
+        [disabled]="labFg.invalid || loading()"
+        >Salvar</button>
     </form>
 </p-dialog>
